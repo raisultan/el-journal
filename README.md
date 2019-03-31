@@ -25,3 +25,9 @@
 * ##### Components folder contains functional or dumb components related to certain section of app.
 * ##### Styled folder will contain styled-wrapper components.
 * ##### Redux directory contains, all things related to redux.
+
+### Other important notices:
+* It is necessary to use PropTypes in every component. (For custom object SHAPE, should create custom PropTypes).
+* It is necessary to use defaultProps, if it is compatible to component.
+* Do not create components with lots of props. Instead use single object, and then decompose it with ES6.
+* Single Responsibility Rule!
