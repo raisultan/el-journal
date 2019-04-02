@@ -2,16 +2,15 @@ import React from 'react'
 import { Layout } from 'antd'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
-import Navigation from '../components/Navigation'
-import Footer from '../components/Footer'
+import Navigation from './components/Navigation'
+import Header from './components/Header'
+import Footer from './components/Footer'
 
-import Journal from '../../JournalContainer'
-import Timetable from '../../TimetableContainer'
-import Events from '../../EventsContainer'
+import Journal from '../JournalContainer'
+import Timetable from '../TimetableContainer'
+import Events from '../EventsContainer'
 
-const {
-  Header, Content,
-} = Layout
+const { Content } = Layout
 
 const layoutStyle = {
   height: '100vh',
@@ -25,7 +24,7 @@ export default () => {
       >
         <Navigation theme="light"/>
         <Layout>
-          <Header style={{ background: '#fff', padding: 0 }} />
+          <Header label="School"/>
           <Content style={{ margin: '24px 16px 0'}}>
             <div style={{ padding: 24, background: '#fff', minHeight: 360, height: '100%' }}>
               <Switch>
