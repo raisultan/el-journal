@@ -5,32 +5,34 @@ const {
   Header, Content, Footer, Sider,
 } = Layout
 
+const layoutStyle = {
+  height: '100vh',
+}
+
 export default () => {
   return (
-    <Layout>
+    <Layout
+      style={layoutStyle}
+    >
       <Sider
         breakpoint="lg"
-        collapsedWidth="0"
-        onBreakpoint={(broken) => { console.log(broken); }}
-        onCollapse={(collapsed, type) => { console.log(collapsed, type); }}
+        collapsedWidth="80"        
+        width={160}
+        theme="light"
       >
         <div className="logo" />
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
+        <Menu theme="light" mode="inline" defaultSelectedKeys={['4']}>
           <Menu.Item key="1">
-            <Icon type="user" />
-            <span className="nav-text">nav 1</span>
+            <Icon type="book" />
+            <span className="nav-text">Журнал</span>
           </Menu.Item>
           <Menu.Item key="2">
-            <Icon type="video-camera" />
-            <span className="nav-text">nav 2</span>
+            <Icon type="calendar" />
+            <span className="nav-text">Расписание</span>
           </Menu.Item>
           <Menu.Item key="3">
-            <Icon type="upload" />
-            <span className="nav-text">nav 3</span>
-          </Menu.Item>
-          <Menu.Item key="4">
-            <Icon type="user" />
-            <span className="nav-text">nav 4</span>
+            <Icon type="idcard" />
+            <span className="nav-text">События</span>
           </Menu.Item>
         </Menu>
       </Sider>
@@ -42,7 +44,7 @@ export default () => {
           </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
-          Ant Design ©2018 Created by Ant UED
+          ElJ ©2018
         </Footer>
       </Layout>
     </Layout>
