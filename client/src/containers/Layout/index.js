@@ -3,7 +3,7 @@ import { Layout } from 'antd'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import Navigation from './components/Navigation'
-import Header from './components/Header'
+import Header from './containers/Header'
 import Footer from './components/Footer'
 
 import Journal from '../JournalContainer'
@@ -13,7 +13,7 @@ import Events from '../EventsContainer'
 const { Content } = Layout
 
 const layoutStyle = {
-  height: '100vh',
+  minHeight: '100vh',
 }
 
 export default () => {
@@ -34,7 +34,7 @@ export default () => {
               </Switch>
             </div>
           </Content>
-          <Footer />
+          <Footer label="ElJ ©2019" />
         </Layout>
       </Layout>
     </BrowserRouter>

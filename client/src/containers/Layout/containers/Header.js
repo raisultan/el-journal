@@ -7,13 +7,13 @@ const { Header } = Layout
 
 const options = [
   {
-    name: 'someoption 1'
+    name: 'Геометрия'
   },
   {
-    name: 'someoption 2'
+    name: 'Алгебра'
   },
   {
-    name: 'someoption 3'
+    name: 'Физика'
   }
 ]
 
@@ -25,6 +25,7 @@ export default ({ label, showSubject }) => {
         <h2>{upperCaseLabel}</h2>
         <Dropdown 
           label="Предметы"
+          tip="Выберите предмет"
           options={options}
         />
       </StyledHeader>      

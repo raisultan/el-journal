@@ -10,3 +10,12 @@ export const StyledHeader = styled.div`
 export const AbsoluteDiv = styled.div`
   height: 100%;
 `
+
+export const RightMarginedSpan = styled.span`
+  margin-right: ${props => props.size};
+`
+
+export const BlueSpan = styled.span`
+  color: #1890ff;
+  cursor: pointer;
+`

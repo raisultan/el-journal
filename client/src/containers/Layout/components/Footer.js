@@ -3,10 +3,10 @@ import { Layout } from 'antd'
 
 const { Footer } = Layout
 
-export default () => {
+export default ({label}) => {
   return (
     <Footer style={{ textAlign: 'center' }}>
-      ElJ ©2018
+      {label}
     </Footer>
   )
 }
