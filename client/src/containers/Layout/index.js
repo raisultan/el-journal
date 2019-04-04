@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import Navigation from './components/Navigation'
 import Header from './containers/Header'
+import SubHeader from './containers/SubHeader'
 import Footer from './components/Footer'
 
 import Journal from '../JournalContainer'
@@ -25,6 +26,7 @@ export default () => {
         <Navigation theme="light"/>
         <Layout>
           <Header label="School"/>
+          <SubHeader />
           <Content style={{ margin: '24px 16px 0'}}>
             <div style={{ padding: 24, background: '#fff', minHeight: 360, height: '100%' }}>
               <Switch>
