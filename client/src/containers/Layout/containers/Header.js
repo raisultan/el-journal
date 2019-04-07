@@ -24,7 +24,7 @@ export default ({ label, showSubject }) => {
       <StyledHeader>
         <h2>{upperCaseLabel}</h2>
         <Dropdown 
-          label="Предметы"
+          label="Предмет"
           tip="Выберите предмет"
           options={options}
         />

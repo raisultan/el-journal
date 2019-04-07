@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout, Menu, Icon } from 'antd'
 import { NavLink } from 'react-router-dom'
-
+import { StyledLogoDiv } from '../styled'
 const {  Sider, } = Layout
 
 export default ({theme}) => {
@@ -12,7 +12,8 @@ export default ({theme}) => {
       width={160}
       theme={theme}
     >
-      <div className="logo" />
+    {/* some problem here */}
+      <StyledLogoDiv />
       <Menu theme="light" mode="inline" defaultSelectedKeys={['1']}>
         <Menu.Item key="1">
           <NavLink to="/journal">

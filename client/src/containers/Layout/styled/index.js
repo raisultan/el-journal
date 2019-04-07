@@ -27,3 +27,9 @@ export const VerticalGridBlock = styled.div`
   grid-auto-flow: column;
   grid-gap: 4px;
 `
+
+export const StyledLogoDiv = styled.div`
+  height: 32px;
+  background: whitesmoke;
+  margin: 16px;
+`

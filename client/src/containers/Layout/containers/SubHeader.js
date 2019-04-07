@@ -49,12 +49,12 @@ export default () => {
       <CustomButton
         label="Отметить об отсутствии без причины"
         theme="red"
-        icon="dislike"
+        icon="frown"
       />
       <CustomButton
         label="Отметить об отсутствии по причине"
         theme="green"
-        icon="like"
+        icon="smile"
       />
     </VerticalGridBlock>
   )
