@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { Router, Route } from 'react-router-dom'
+
+import { PrivateRoute } from '../../../shared/components'
+import { history } from '../../../redux/helpers'
 import Layout from '../../Layout'
 import AuthForm from '../../Auth'
 import './App.css'
@@ -7,12 +10,12 @@ import './App.css'
 class App extends Component {
   render() {
     return (
-      <BrowserRouter>
-        <Switch>
-          <Route path="/auth" component={AuthForm} />
-          <Route path="/layout" component={Layout} />
-        </Switch>
-      </BrowserRouter>
+      <Router history={history}>
+          <>
+            <PrivateRoute exact path="/" component={Layout} />
+            <Route path="/auth" component={AuthForm} />
+          </>
+      </Router>
     )
   }
 }
