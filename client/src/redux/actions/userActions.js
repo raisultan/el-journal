@@ -1,7 +1,6 @@
-import { userConstants } from '../_constants' 
-import { userService } from '../_services' 
-import { alertActions } from '.' 
-import { history } from '../_helpers' 
+import { userConstants } from '../constants' 
+import { alertActions } from './alertActions' 
+import { history } from '../helpers' 
 
 export const userActions = {
     login,
@@ -15,17 +14,17 @@ function login(username, password) {
     return dispatch => {
         dispatch(request({ username })) 
 
-        userService.login(username, password)
-            .then(
-                user => { 
-                    dispatch(success(user)) 
-                    history.push('/') 
-                },
-                error => {
-                    dispatch(failure(error)) 
-                    dispatch(alertActions.error(error)) 
-                }
-            ) 
+        // userService.login(username, password)
+        //     .then(
+        //         user => { 
+        //             dispatch(success(user)) 
+        //             history.push('/') 
+        //         },
+        //         error => {
+        //             dispatch(failure(error)) 
+        //             dispatch(alertActions.error(error)) 
+        //         }
+        //     ) 
     } 
 
     function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
@@ -34,7 +33,7 @@ function login(username, password) {
 }
 
 function logout() {
-    userService.logout() 
+    // userService.logout() 
     return { type: userConstants.LOGOUT } 
 }
 
@@ -42,18 +41,18 @@ function register(user) {
     return dispatch => {
         dispatch(request(user)) 
 
-        userService.register(user)
-            .then(
-                user => { 
-                    dispatch(success()) 
-                    history.push('/login') 
-                    dispatch(alertActions.success('Registration successful')) 
-                },
-                error => {
-                    dispatch(failure(error)) 
-                    dispatch(alertActions.error(error)) 
-                }
-            ) 
+        // userService.register(user)
+        //     .then(
+        //         user => { 
+        //             dispatch(success()) 
+        //             history.push('/login') 
+        //             dispatch(alertActions.success('Registration successful')) 
+        //         },
+        //         error => {
+        //             dispatch(failure(error)) 
+        //             dispatch(alertActions.error(error)) 
+        //         }
+        //     ) 
     } 
 
     function request(user) { return { type: userConstants.REGISTER_REQUEST, user } }
@@ -65,11 +64,11 @@ function getAll() {
     return dispatch => {
         dispatch(request()) 
 
-        userService.getAll()
-            .then(
-                users => dispatch(success(users)),
-                error => dispatch(failure(error))
-            ) 
+        // userService.getAll()
+        //     .then(
+        //         users => dispatch(success(users)),
+        //         error => dispatch(failure(error))
+        //     ) 
     } 
 
     function request() { return { type: userConstants.GETALL_REQUEST } }
@@ -82,15 +81,15 @@ function _delete(id) {
     return dispatch => {
         dispatch(request(id)) 
 
-        userService.delete(id)
-            .then(
-                user => { 
-                    dispatch(success(id)) 
-                },
-                error => {
-                    dispatch(failure(id, error)) 
-                }
-            ) 
+        // userService.delete(id)
+        //     .then(
+        //         user => { 
+        //             dispatch(success(id)) 
+        //         },
+        //         error => {
+        //             dispatch(failure(id, error)) 
+        //         }
+        //     ) 
     } 
 
     function request(id) { return { type: userConstants.DELETE_REQUEST, id } }

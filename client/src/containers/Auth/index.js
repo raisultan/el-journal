@@ -2,6 +2,9 @@ import React from 'react'
 import {
   Form, Icon, Input, Button, Checkbox,
 } from 'antd'
+import { connect } from 'react-redux'
+
+import { userActions } from '../../redux/actions'
 import { 
   StyledCentererWrapper,
   StyledAuthWrapper,
@@ -9,13 +12,14 @@ import {
   StyledRightAnchor
  } from './styled'
 
-const NormalLoginForm = ({ form }) => {
+const NormalLoginForm = ({ form, dispatch }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
     form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+        dispatch(userActions.login(values.userName, values.password))
       }
     });
   }
@@ -68,6 +72,15 @@ const NormalLoginForm = ({ form }) => {
   )
 }
 
+const mapStateToProps = state => {
+  const { loggingIn } = state.authentication;
+  return {
+      loggingIn
+  }
+}
+
 const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(NormalLoginForm)
 
-export default WrappedNormalLoginForm 
+const connectedLoginForm = connect(mapStateToProps)(WrappedNormalLoginForm)
+
+export default connectedLoginForm
