@@ -19,22 +19,22 @@ const NormalLoginForm = ({ form, dispatch }) => {
     form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        dispatch(userActions.login(values.userName, values.password))
+        dispatch(userActions.login(values))
       }
     });
   }
 
-  const isSubmittable = (func) => func('userName') && func('password')
+  const isSubmittable = (func) => func('username') && func('password')
 
   const { getFieldDecorator, getFieldValue } = form
-    
+
   return (
     <StyledCentererWrapper>
       <StyledAuthWrapper>
         <StyledCentererLabel>Войти в систему</StyledCentererLabel>
         <Form onSubmit={handleSubmit} className="login-form">
           <Form.Item>
-            {getFieldDecorator('userName', {
+            {getFieldDecorator('username', {
               rules: [{ required: true, message: 'Пожалуйста, введите имя пользователя!' }],
             })(
               <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Имя пользователя" />
@@ -79,8 +79,6 @@ const mapStateToProps = state => {
   }
 }
 
-const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(NormalLoginForm)
-
-const connectedLoginForm = connect(mapStateToProps)(WrappedNormalLoginForm)
+const connectedLoginForm = connect(mapStateToProps)(Form.create({ name: 'normal_login' })(NormalLoginForm))
 
 export default connectedLoginForm
