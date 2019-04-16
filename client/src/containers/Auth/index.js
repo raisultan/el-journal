@@ -17,6 +17,7 @@ const loginError = (
     <Alert
       message = "Нет такого пользователя, проверьте введенные данные..."
       type="error"
+      showIcon
     />
     < hr/>
   </>
