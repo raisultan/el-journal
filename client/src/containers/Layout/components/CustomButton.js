@@ -10,7 +10,7 @@ const buttonStyles = {
   }
 }
 
-export default ({theme, icon, label, onClick}) => {
+export default ({theme, icon, label, action}) => {
 
   const butTheme = buttonStyles[theme] ? buttonStyles[theme] : null
   const butIcon = icon ? icon : null
@@ -19,6 +19,7 @@ export default ({theme, icon, label, onClick}) => {
     <Button
       style={butTheme}
       icon={butIcon}
+      onClick={action}
     >
       {label}
     </ Button>
