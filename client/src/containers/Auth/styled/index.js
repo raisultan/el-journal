@@ -9,8 +9,8 @@ export const StyledCentererWrapper = styled.div`
 `
 
 export const StyledAuthWrapper = styled.div`
-  height: 40vh;
-  width: 40vh;
+  height: 46vh;
+  width: 46vh;
   min-width: 200px;
   display: flex;
   flex-direction: column;

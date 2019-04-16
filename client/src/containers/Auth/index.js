@@ -12,10 +12,10 @@ import {
   StyledRightAnchor
  } from './styled'
 
-const loginError = (
+const loginError = (mess) => (
   <>
     <Alert
-      message = "Нет такого пользователя, проверьте введенные данные..."
+      message = {mess}
       type="error"
       showIcon
     />
@@ -23,7 +23,7 @@ const loginError = (
   </>
 )
 
-const NormalLoginForm = ({ form, dispatch, loggingIn, loginFail }) => {
+const NormalLoginForm = ({ form, dispatch, loggingIn, loginFail, errorMessage }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -47,7 +47,7 @@ const NormalLoginForm = ({ form, dispatch, loggingIn, loginFail }) => {
           :
           <>
             <StyledCentererLabel>Войти в систему</StyledCentererLabel>
-            { loginFail ? loginError : null }
+            { loginFail ? loginError(errorMessage) : null }
             <Form onSubmit={handleSubmit} className="login-form"> 
               <Form.Item>
                 {getFieldDecorator('username', {
@@ -91,10 +91,11 @@ const NormalLoginForm = ({ form, dispatch, loggingIn, loginFail }) => {
 }
 
 const mapStateToProps = state => {
-  const { loggingIn, loginFail } = state.authentication;
+  const { loggingIn, loginFail, errorMessage } = state.authentication;
   return {
       loggingIn,
-      loginFail
+      loginFail,
+      errorMessage,
   }
 }
 
