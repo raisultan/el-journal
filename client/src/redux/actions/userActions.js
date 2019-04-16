@@ -25,9 +25,11 @@ function login(user) {
         
         //FAKE AUTH
         if(user.username === 'test' && user.password === 'test') {
-            dispatch(success(user))
-            history.push('/')
-            localStorage.setItem('user', JSON.stringify(user));
+            setTimeout(() => {
+                dispatch(success(user))
+                history.push('/')
+                localStorage.setItem('user', JSON.stringify(user));
+            }, 3000)            
         }
         else {
             dispatch(failure('error')) 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Button } from 'antd'
+import { Layout } from 'antd'
 import { StyledHeader } from '../styled'
 import Dropdown from '../components/LabeledDropdown'
 import CustomButton from '../components/CustomButton'
