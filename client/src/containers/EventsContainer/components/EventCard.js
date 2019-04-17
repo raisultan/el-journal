@@ -8,7 +8,7 @@ export default ({title, desc, date}) => {
     <span>Изменить <Icon type="edit" /></span>,
     <span>Подробнее <Icon type="ellipsis" /></span>
   ]
-
+  
   return (
     <Card
       style={{ width: '100%' }}

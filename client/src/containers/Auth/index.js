@@ -91,7 +91,7 @@ const NormalLoginForm = ({ form, dispatch, loggingIn, loginFail, errorMessage })
 }
 
 const mapStateToProps = state => {
-  const { loggingIn, loginFail, errorMessage } = state.authentication;
+  const { loggingIn, loginFail, errorMessage } = state.authentication
   return {
       loggingIn,
       loginFail,

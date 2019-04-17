@@ -1,32 +1,40 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import EventCard from './components/EventCard'
 import { EventsWrapper } from './styled'
+import { headerActions } from '../../redux/actions'
 
 const events = [
   {
     title: 'Событие №1',
-    desc: 'Описание события...',
+    desc: 'Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века.',
     date: '12.09.2019 - 15.09.2019'
   },
   {
     title: 'Событие №2',
-    desc: 'Описание события...',
+    desc: 'Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века.',
     date: '12.09.2019 - 15.09.2019'
   },
   {
     title: 'Событие №3',
-    desc: 'Описание события...',
+    desc: 'Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века.',
     date: '12.09.2019 - 15.09.2019'
   },
   {
     title: 'Событие №4',
-    desc: 'Описание события...',
+    desc: 'Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века.',
+    date: '12.09.2019 - 15.09.2019'
+  },
+  {
+    title: 'Событие №5',
+    desc: 'Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века.',
     date: '12.09.2019 - 15.09.2019'
   },
 ]
 
-export default () => {
+const EventContainer = ({ dispatch }) => {
+  dispatch(headerActions.changeRoute('events'))
 
   const cards = (
     events.map((event) => (
@@ -45,3 +53,5 @@ export default () => {
     </ EventsWrapper>
   )
 }
+
+export default connect()(EventContainer)
