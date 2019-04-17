@@ -8,11 +8,14 @@ export const userActions = {
     logout,
 } 
 
+const LINK = 'http://ed9f8ca4.ngrok.io'
+const LOCAL = 'http://192.168.0.105:3000'
+
 function login(user) {
     return dispatch => {
         dispatch(request({ user })) 
 
-        axios.post(`http://192.168.0.105:3000/auth/login`,  user)
+        axios.post(`${LINK}/auth/login`,  user)
             .then(res => {
                 console.log(res)
                 dispatch(success(res))
