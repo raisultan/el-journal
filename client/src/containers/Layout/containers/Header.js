@@ -38,7 +38,7 @@ export default ({ label, showSubject }) => {
           options={options}
         />
         <CustomButton 
-          label="Выйти из аккаунта"
+          label="Выйти"
           icon="logout"
           action={userLogout}
         />

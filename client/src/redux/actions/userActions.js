@@ -8,33 +8,32 @@ export const userActions = {
     logout,
 } 
 
-const LINK = 'http://f92934b7.ngrok.io'
+const LINK = 'http://7dea414a.ngrok.io'
 const LOCAL = 'http://192.168.0.105:3000'
 
 function login(user) {
     return dispatch => {
         dispatch(request({ user })) 
 
-        // if (user.username === 'test') {
-        //     setTimeout(() => {
-        //         dispatch(success(user))
-        //         history.push('/')
-        //         localStorage.setItem('user', JSON.stringify(user))
-        //     }, 2000)
-        // } else {
-        //     dispatch(failure('Ошибка'))
-        //     dispatch(alertActions.error('Ошибка'))
-        // }
-        axios.post(`${LINK}/auth/login`,  user)
-            .then(res => {
-                console.log(res)
-                dispatch(success(res))
+        if (user.username === 'test') {
+            setTimeout(() => {
+                dispatch(success(user))
                 history.push('/')
-                localStorage.setItem('user', JSON.stringify(res.data.token))
-            }).catch(e => {
-                dispatch(failure(e.response.data.message))
-                dispatch(alertActions.error(e.response.data.message))
-            })
+                localStorage.setItem('user', JSON.stringify(user))
+            }, 2000)
+        } else {
+            dispatch(failure('Ошибка'))
+            dispatch(alertActions.error('Ошибка'))
+        }
+        // axios.post(`${LINK}/auth/login`,  user)
+        //     .then(res => {
+        //         dispatch(success(res))
+        //         history.push('/')
+        //         localStorage.setItem('user', JSON.stringify(res.data.token))
+        //     }).catch(e => {
+        //         dispatch(failure(e.response.data.message))
+        //         dispatch(alertActions.error(e.response.data.message))
+        //     })
     } 
 
     function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
