@@ -12,19 +12,37 @@ const LINK = 'http://7dea414a.ngrok.io'
 const LOCAL = 'http://192.168.0.105:3000'
 
 function login(user) {
-    return dispatch => {
+    return async dispatch => {
         dispatch(request({ user })) 
 
+        //needs to be tested
+        // try {
+        //     const  response = await axios.post(`${LINK}/auth/login`,  user)
+        //     if (response) {
+        //         dispatch(success(response))
+        //         history.push('/')
+        //         localStorage.setItem('user', JSON.stringify(response.data.token))
+        //     } else {
+        //         dispatch(failure('Неизвестная ошибка'))
+        //         dispatch(alertActions.error('Неизвестная ошибка'))
+        //     }
+        // } catch (e) {
+        //     dispatch(failure(e.response.data.message))
+        //     dispatch(alertActions.error(e.response.data.message))
+        // }
+
+        
         if (user.username === 'test') {
             setTimeout(() => {
                 dispatch(success(user))
                 history.push('/')
                 localStorage.setItem('user', JSON.stringify(user))
-            }, 2000)
+            }, 1000)
         } else {
             dispatch(failure('Ошибка'))
             dispatch(alertActions.error('Ошибка'))
         }
+
         // axios.post(`${LINK}/auth/login`,  user)
         //     .then(res => {
         //         dispatch(success(res))

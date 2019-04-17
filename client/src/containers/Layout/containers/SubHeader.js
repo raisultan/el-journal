@@ -24,10 +24,6 @@ const options = [
   }
 ]
 
-/**
- * todo: needs to be added conditional rendering
- * for set of functions. According to routes, those will be different.
- */
 const SubHeader = ({currentRoute}) => {
 
   const markButtons = (
@@ -84,6 +80,7 @@ const SubHeader = ({currentRoute}) => {
           options={options}
       />
       {attenButtons}
+      {markButtons}
     </>
   )
 
