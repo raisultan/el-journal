@@ -1,7 +1,9 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import EventCard from './components/EventCard'
 import { EventsWrapper } from './styled'
+import { headerActions } from '../../redux/actions'
 
 const events = [
   {
@@ -31,7 +33,8 @@ const events = [
   },
 ]
 
-export default () => {
+const EventContainer = ({ dispatch }) => {
+  dispatch(headerActions.changeRoute('events'))
 
   const cards = (
     events.map((event) => (
@@ -50,3 +53,5 @@ export default () => {
     </ EventsWrapper>
   )
 }
+
+export default connect()(EventContainer)
