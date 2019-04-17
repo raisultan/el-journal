@@ -26,33 +26,28 @@ module.exports = (passport, models) => {
       passwordField: 'password',
       passReqToCallback: true,
     },
-
-    ((req, username, password, done) => {
-      User.findOne({
-        where: {
-          username,
-        },
-      })
-        .then((user) => {
-          if (!user) {
-            return done(null, false, {
-              message: 'Пользователь не зарегистрирован',
-            });
-          }
-          if (!bCrypt.compareSync(password, user.password)) {
-            return done(null, false, {
-              message: 'Неправильный пароль',
-            });
-          }
-          const userinfo = user.get();
-          return done(null, userinfo);
-        })
-        .catch((err) => {
-          console.log('Error:', err);
-          return done(null, false, {
-            message: 'Oops. Unknown error',
-          });
+    (async (req, username, password, done) => {
+      try {
+        const user = await User.findOne({
+          where: { username },
         });
+        if (!user) {
+          return done(null, false, {
+            message: 'Пользователь не зарегистрирован',
+          });
+        }
+        if (!bCrypt.compareSync(password, user.password)) {
+          return done(null, false, {
+            message: 'Неправильный пароль',
+          });
+        }
+        const userinfo = user.get();
+        return done(null, userinfo);
+      } catch (error) {
+        return done(null, false, {
+          message: 'Oops. Unknown error',
+        });
+      }
     }),
   ));
 };
