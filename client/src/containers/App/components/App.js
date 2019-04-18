@@ -11,7 +11,7 @@ class App extends Component {
   render() {
     return (
       <Router history={history}>
-        <PrivateRoute exact path="/" component={Layout} />
+        <PrivateRoute path="/layout" component={Layout} />
         <Route path="/auth" component={AuthForm} />
       </Router>
     )

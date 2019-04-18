@@ -1,11 +1,11 @@
 import React from 'react'
 import { Layout } from 'antd'
-import { connect } from 'react-redux'
 
 import LabeledDropdown from '../components/LabeledDropdown'
 import CustomButton from '../components/CustomButton'
 import { StyledHeader, VerticalGridBlock } from '../styled'
-import { routeTranslator } from '../../../utils/routeTranslator'
+import { routeTranslator } from '../../../utils'
+import { history } from '../../../redux/helpers'
 
 const { Header } = Layout
 
@@ -24,7 +24,7 @@ const options = [
   }
 ]
 
-const SubHeader = ({currentRoute}) => {
+const SubHeader = () => {
 
   const markButtons = (
     <VerticalGridBlock>
@@ -93,34 +93,21 @@ const SubHeader = ({currentRoute}) => {
   )
 
   const functionPanel = (routeName) => {
-    switch (routeName) {
-      case 'events':
-        return eventsPanel
-      case 'journal':
-        return journalPanel
-      case 'timetable':
-        return timetablePanel
-      default:
-        return null
-    }
-    
+    if (routeName.includes('journal')) return journalPanel
+    if (routeName.includes('timetable')) return timetablePanel
+    if (routeName.includes('events')) return eventsPanel
+    else return null
   }
+    
 
   return (
     <Header style={{ background: 'whitesmoke', padding: 0, height: '80px'}}>
       <StyledHeader>
-        <h2>{routeTranslator(currentRoute)}</h2>
-        {functionPanel(currentRoute)}
+        <h2>{routeTranslator(history.location.pathname)}</h2>
+        {functionPanel(history.location.pathname)}
       </StyledHeader>      
     </Header>
   )
 }
 
-const mapStateToProps = state => {
-  const { currentRoute } = state.routes
-  return {
-      currentRoute
-  }
-}
-
-export default connect(mapStateToProps)(SubHeader)
+export default SubHeader

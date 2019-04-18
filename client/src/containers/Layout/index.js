@@ -29,9 +29,9 @@ export default () => {
         <Content style={{ margin: '24px 16px 0'}}>
           <div style={{ padding: 24, background: '#fff', minHeight: 360, height: '100%' }}>
             <Switch>
-              <Route path="/journal" component={Journal}/>
-              <Route path="/timetable" component={Timetable}/>
-              <Route path="/events" component={Events}/>
+              <Route path="/layout/journal" component={Journal}/>
+              <Route path="/layout/timetable" component={Timetable}/>
+              <Route path="/layout/events" component={Events}/>
             </Switch>
           </div>
         </Content>

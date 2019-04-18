@@ -1,10 +1,13 @@
 import React from 'react'
 import { Layout, Menu, Icon } from 'antd'
 import { NavLink } from 'react-router-dom'
+
 import { StyledLogoDiv } from '../styled'
+import { pathDecoder } from '../../../utils'
+import { history } from '../../../redux/helpers'
 const {  Sider, } = Layout
 
-export default ({theme}) => {
+const Navigation = ({theme}) => {
   return (
     <Sider
       breakpoint="lg"
@@ -14,21 +17,21 @@ export default ({theme}) => {
     >
     {/* some problem here */}
       <StyledLogoDiv />
-      <Menu theme="light" mode="inline" defaultSelectedKeys={['1']}>
+      <Menu theme="light" mode="inline" defaultSelectedKeys={[`${pathDecoder(history.location.pathname)}`]}>
         <Menu.Item key="1">
-          <NavLink to="/journal">
+          <NavLink to="/layout/journal">
             <Icon type="book" />
             <span className="nav-text">Журнал</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item key="2">
-          <NavLink to="/timetable">
+          <NavLink to="/layout/timetable">
             <Icon type="calendar" />
             <span className="nav-text">Расписание</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item key="3">
-          <NavLink to="/events">
+          <NavLink to="/layout/events">
             <Icon type="idcard" />
             <span className="nav-text">События</span>
           </NavLink>
@@ -37,3 +40,5 @@ export default ({theme}) => {
     </Sider>
   )
 }
+
+export default Navigation

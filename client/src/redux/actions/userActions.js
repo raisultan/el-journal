@@ -35,7 +35,7 @@ function login(user) {
             setTimeout(() => {
                 dispatch(success(user))
                 localStorage.setItem('user', JSON.stringify(user))
-                history.push('/')
+                history.push('/layout')
             }, 1000)
         } else {
             dispatch(failure('Ошибка'))
