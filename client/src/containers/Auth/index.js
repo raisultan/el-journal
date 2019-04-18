@@ -23,7 +23,7 @@ const loginError = (mess) => (
   </>
 )
 
-const NormalLoginForm = ({ form, dispatch, loggingIn, loginFail, errorMessage }) => {
+const NormalLoginForm = ({ form, dispatch, loggingIn, loginFail, errorMessage, location }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { userConstants } from '../constants' 
-import { alertActions } from './alertActions' 
 import { history } from '../helpers' 
 
 export const userActions = {
@@ -20,8 +19,8 @@ function login(user) {
         //     const  response = await axios.post(`${LINK}/auth/login`,  user)
         //     if (response) {
         //         dispatch(success(response))
-        //         history.push('/')
         //         localStorage.setItem('user', JSON.stringify(response.data.token))
+        //         history.push('/')
         //     } else {
         //         dispatch(failure('Неизвестная ошибка'))
         //         dispatch(alertActions.error('Неизвестная ошибка'))
@@ -35,19 +34,18 @@ function login(user) {
         if (user.username === 'test') {
             setTimeout(() => {
                 dispatch(success(user))
-                history.push('/')
                 localStorage.setItem('user', JSON.stringify(user))
+                history.push('/')
             }, 1000)
         } else {
             dispatch(failure('Ошибка'))
-            dispatch(alertActions.error('Ошибка'))
         }
 
         // axios.post(`${LINK}/auth/login`,  user)
         //     .then(res => {
         //         dispatch(success(res))
-        //         history.push('/')
         //         localStorage.setItem('user', JSON.stringify(res.data.token))
+        //         history.push('/')
         //     }).catch(e => {
         //         dispatch(failure(e.response.data.message))
         //         dispatch(alertActions.error(e.response.data.message))
@@ -60,6 +58,7 @@ function login(user) {
 }
 
 function logout() {
-    localStorage.removeItem('user');
+    localStorage.removeItem('user')
+    history.replace('/')
     return { type: userConstants.LOGOUT } 
 }
