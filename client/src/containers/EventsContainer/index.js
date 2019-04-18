@@ -1,5 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
 
 import EventCard from './components/EventCard'
 import { EventsWrapper } from './styled'
