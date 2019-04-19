@@ -1,17 +1,20 @@
 import React from 'react'
 import { Modal, Button } from 'antd'
 
+import EventEditForm from './EventEditForm'
+
 const EventEditModal = ({title, desc, date, butLabel, icon}) => {
   const modal = () => Modal.info({
-    title: title,
+    title: 'Изменение события',
+    width: '456px',
+    okText: 'Закрыть',
     content: (
       <>
-        <br />
-        <h4>Описание</h4>
-        <p>{desc}</p>
-        <br />
-        <h4>Дата</h4>
-        <p>{date}</p>
+        <EventEditForm
+          title={title}
+          desc={desc}
+          date={date}
+        />
       </>
     ),
     onOk() {},
