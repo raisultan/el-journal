@@ -32,7 +32,6 @@ const events = [
 ]
 
 const EventContainer = ({ dispatch }) => {
-  
   const cards = (
     events.map((event) => (
       <EventCard
