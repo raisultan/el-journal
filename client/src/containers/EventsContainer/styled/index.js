@@ -12,7 +12,7 @@ export const EventsWrapper = styled.div`
 `
 
 export const ButtonsWrapper = styled.div`
-  width: 54%;
+  width: 55%;
   display: flex;
   justify-content: space-between;
 `

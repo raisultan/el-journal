@@ -8,7 +8,7 @@ import { ButtonsWrapper } from '../styled'
 
 const { TextArea } = Input
 
-const EventEditForm = ({form, title, desc, date}) => {
+const EventEditForm = ({form, title, desc, date, okButLabel, cancelButLabel}) => {
   const [eventDate, setEventDate] = useState(date)
 
   const handleSubmit = (e) => {
@@ -50,10 +50,10 @@ const EventEditForm = ({form, title, desc, date}) => {
       <Form.Item>
         <ButtonsWrapper>
           <Button type="primary" htmlType="submit" className="login-form-button">
-            Изменить
+            {okButLabel}
           </Button>
           <Button type="danger" htmlType="submit" className="login-form-button">
-              Удалить
+            {cancelButLabel}
           </Button>
         </ButtonsWrapper>
       </Form.Item>

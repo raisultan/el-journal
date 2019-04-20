@@ -6,6 +6,7 @@ import CustomButton from '../components/CustomButton'
 import { StyledHeader, VerticalGridBlock } from '../styled'
 import { routeTranslator } from '../../../utils'
 import { history } from '../../../redux/helpers'
+import EventAddModal from '../../EventsContainer/containers/EventAddModal'
 
 const { Header } = Layout
 
@@ -65,9 +66,8 @@ const SubHeader = () => {
           tip="Выберите класс"
           options={options}
       />
-      <CustomButton
-        label="Добавить событие"
-        icon="plus"
+      <EventAddModal
+        butLabel="Добавить событие"
       />
     </>
   )
