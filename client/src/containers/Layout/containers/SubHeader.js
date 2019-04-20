@@ -7,6 +7,7 @@ import { StyledHeader, VerticalGridBlock } from '../styled'
 import { routeTranslator } from '../../../utils'
 import { history } from '../../../redux/helpers'
 import EventAddModal from '../../EventsContainer/containers/EventAddModal'
+import TimeTableSearchBlock from './TimeTableSearchBlock'
 
 const { Header } = Layout
 
@@ -85,11 +86,7 @@ const SubHeader = () => {
   )
 
   const timetablePanel = (
-      <LabeledDropdown
-          label="Класс"
-          tip="Выберите класс"
-          options={options}
-      />
+      <TimeTableSearchBlock />
   )
 
   const functionPanel = (routeName) => {
