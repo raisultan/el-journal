@@ -350,8 +350,8 @@ const tt_teacher = [
   }
 ]
 
-const cards = tt_teacher.map(d => {
-  return <TimeTableCard key={d.day} type='teacher' day={d.day} data={d.data}/>
+const cards = tt_student.map(d => {
+  return <TimeTableCard key={d.day} type='student' day={d.day} data={d.data}/>
 })
 
 const TimetableContainer = ({ dispatch }) => {

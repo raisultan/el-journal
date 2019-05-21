@@ -1,10 +1,9 @@
 import styled from 'styled-components'
 
 export const TableCard = styled.div`
-  padding: 6px;
   height: 100%;
   width: 100%;
-  box-shadow: 0 0.4px 0.6px 0 rgba(0,0,0,0.2);
+  border: 1px solid #d4d6db;
 `
 
 export const TimeTableCardsWrapper = styled.div`
