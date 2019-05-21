@@ -3,7 +3,7 @@ import { Layout } from 'antd'
 
 import LabeledDropdown from '../components/LabeledDropdown'
 import CustomButton from '../components/CustomButton'
-import { StyledHeader, VerticalGridBlock } from '../styled'
+import { StyledHeader, VerticalGridBlock, LeftAlignedBlock } from '../styled'
 import { routeTranslator } from '../../../utils'
 import { history } from '../../../redux/helpers'
 import EventAddModal from '../../EventsContainer/containers/EventAddModal'
@@ -89,10 +89,17 @@ const SubHeader = () => {
       <TimeTableSearchBlock />
   )
 
+  const accountPanel = (
+    <LeftAlignedBlock>
+      <h2>Аккаунт</h2>
+    </LeftAlignedBlock>
+  )
+
   const functionPanel = (routeName) => {
     if (routeName.includes('journal')) return journalPanel
     if (routeName.includes('timetable')) return timetablePanel
     if (routeName.includes('events')) return eventsPanel
+    if (routeName.includes('account')) return accountPanel
     else return null
   }
     

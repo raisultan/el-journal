@@ -2,7 +2,7 @@ import React from 'react'
 import { Layout } from 'antd'
 import { Link } from 'react-router-dom'
 
-import { StyledHeader } from '../styled'
+import { StyledHeader, StyledAwayBlock } from '../styled'
 import Dropdown from '../components/LabeledDropdown'
 import CustomButton from '../components/CustomButton'
 import { userActions } from '../../../redux/actions'
@@ -37,13 +37,23 @@ export default ({ label, showSubject }) => {
           tip="Выберите предмет"
           options={options}
         />
-        <Link to="/auth">
-          <CustomButton 
-            label="Выйти"
-            icon="logout"
-            action={userLogout}
-          />
-        </Link>
+        <StyledAwayBlock width='210px'>
+          <Link to="/layout/account">
+            <CustomButton 
+              label="Аккаунт"
+              icon="user"
+              action={null}
+            />
+          </Link>
+          <Link to="/auth">
+            <CustomButton 
+              label="Выйти"
+              icon="logout"
+              action={userLogout}
+            />
+          </Link>
+          
+        </StyledAwayBlock>
       </StyledHeader>      
     </Header>
     

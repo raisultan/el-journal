@@ -10,6 +10,7 @@ import Footer from './components/Footer'
 import Journal from '../JournalContainer'
 import Timetable from '../TimetableContainer'
 import Events from '../EventsContainer'
+import Account from '../AccountContainer'
 
 const { Content } = Layout
 
@@ -32,6 +33,7 @@ export default () => {
               <Route path="/layout/journal" component={Journal}/>
               <Route path="/layout/timetable" component={Timetable}/>
               <Route path="/layout/events" component={Events}/>
+              <Route path="/layout/account" component={Account}/>
             </Switch>
           </div>
         </Content>

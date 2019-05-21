@@ -40,6 +40,15 @@ export const StyledSearchBlock = styled.div`
 `
 
 export const StyledHorizontalBlock = styled.div`
-display: flex;
-flex-direction: row;
+  display: flex;
+  flex-direction: row;
+`
+export const StyledAwayBlock = styled.div`
+  width: ${props => props.width};
+  display: flex;
+  justify-content: space-between;
+`
+
+export const LeftAlignedBlock = styled.div`
+  width: 100%;
 `
