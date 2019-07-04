@@ -1,9 +1,10 @@
 import React from 'react'
 import { Layout } from 'antd'
-import { StyledHeader } from '../styled'
+import { Link } from 'react-router-dom'
+
+import { StyledHeader, StyledAwayBlock } from '../styled'
 import Dropdown from '../components/LabeledDropdown'
 import CustomButton from '../components/CustomButton'
-
 import { userActions } from '../../../redux/actions'
 
 const { Header } = Layout
@@ -25,7 +26,6 @@ export default ({ label, showSubject }) => {
 
   const userLogout = () => {
     userActions.logout()
-    window.location.reload()
   }
 
   return (
@@ -37,11 +37,23 @@ export default ({ label, showSubject }) => {
           tip="Выберите предмет"
           options={options}
         />
-        <CustomButton 
-          label="Выйти из аккаунта"
-          icon="logout"
-          action={userLogout}
-        />
+        <StyledAwayBlock width='210px'>
+          <Link to="/layout/account">
+            <CustomButton 
+              label="Аккаунт"
+              icon="user"
+              action={null}
+            />
+          </Link>
+          <Link to="/auth">
+            <CustomButton 
+              label="Выйти"
+              icon="logout"
+              action={userLogout}
+            />
+          </Link>
+          
+        </StyledAwayBlock>
       </StyledHeader>      
     </Header>
     

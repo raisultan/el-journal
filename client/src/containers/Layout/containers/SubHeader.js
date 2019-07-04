@@ -1,8 +1,13 @@
 import React from 'react'
 import { Layout } from 'antd'
+
 import LabeledDropdown from '../components/LabeledDropdown'
 import CustomButton from '../components/CustomButton'
-import { StyledHeader, VerticalGridBlock } from '../styled'
+import { StyledHeader, VerticalGridBlock, LeftAlignedBlock } from '../styled'
+import { routeTranslator } from '../../../utils'
+import { history } from '../../../redux/helpers'
+import EventAddModal from '../../EventsContainer/containers/EventAddModal'
+import TimeTableSearchBlock from './TimeTableSearchBlock'
 
 const { Header } = Layout
 
@@ -21,11 +26,7 @@ const options = [
   }
 ]
 
-/**
- * todo: needs to be added conditional rendering
- * for set of functions. According to routes, those will be different.
- */
-export default () => {
+const SubHeader = () => {
 
   const markButtons = (
     <VerticalGridBlock>
@@ -59,18 +60,58 @@ export default () => {
     </VerticalGridBlock>
   )
 
-  return (
-    <Header style={{ background: 'whitesmoke', padding: 0, height: '80px'}}>
-      <StyledHeader>
-        <h2>Subheader</h2>
-        <LabeledDropdown
+  const eventsPanel = (
+    <>
+      <LabeledDropdown
           label="Класс"
           tip="Выберите класс"
           options={options}
-        />
-        {markButtons}
-        {attenButtons}
+      />
+      <EventAddModal
+        butLabel="Добавить событие"
+      />
+    </>
+  )
+
+  const journalPanel = (
+    <>
+      <LabeledDropdown
+          label="Класс"
+          tip="Выберите класс"
+          options={options}
+      />
+      {attenButtons}
+      {markButtons}
+    </>
+  )
+
+  const timetablePanel = (
+      <TimeTableSearchBlock />
+  )
+
+  const accountPanel = (
+    <LeftAlignedBlock>
+      <h2>Аккаунт</h2>
+    </LeftAlignedBlock>
+  )
+
+  const functionPanel = (routeName) => {
+    if (routeName.includes('journal')) return journalPanel
+    if (routeName.includes('timetable')) return timetablePanel
+    if (routeName.includes('events')) return eventsPanel
+    if (routeName.includes('account')) return accountPanel
+    else return null
+  }
+    
+
+  return (
+    <Header style={{ background: 'whitesmoke', padding: 0, height: '80px'}}>
+      <StyledHeader>
+        <h2>{routeTranslator(history.location.pathname)}</h2>
+        {functionPanel(history.location.pathname)}
       </StyledHeader>      
     </Header>
   )
 }
+
+export default SubHeader

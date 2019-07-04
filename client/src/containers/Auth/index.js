@@ -23,7 +23,7 @@ const loginError = (mess) => (
   </>
 )
 
-const NormalLoginForm = ({ form, dispatch, loggingIn, loginFail, errorMessage }) => {
+const NormalLoginForm = ({ form, dispatch, loggingIn, loginFail, errorMessage, location }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -91,7 +91,7 @@ const NormalLoginForm = ({ form, dispatch, loggingIn, loginFail, errorMessage })
 }
 
 const mapStateToProps = state => {
-  const { loggingIn, loginFail, errorMessage } = state.authentication;
+  const { loggingIn, loginFail, errorMessage } = state.authentication
   return {
       loggingIn,
       loginFail,

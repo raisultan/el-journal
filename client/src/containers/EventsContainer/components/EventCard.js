@@ -1,17 +1,30 @@
 import React from 'react'
-import { Card, Icon } from 'antd'
+import { Card } from 'antd'
+
+import EventPreviewModal from './EventPreviewModal'
+import EventEditModal from '../containers/EventEditModal'
 
 export default ({title, desc, date}) => {
-
   const { Meta } = Card
   const actions = [
-    <span>Изменить <Icon type="edit" /></span>,
-    <span>Подробнее <Icon type="ellipsis" /></span>
+    <EventEditModal
+      title={title}
+      desc={desc}
+      date={date}
+      butLabel="Изменить"
+      icon="edit"
+    />,
+    <EventPreviewModal
+      title={title}
+      desc={desc}
+      date={date}
+      butLabel="Подробнее"
+      icon="ellipsis"
+    />
   ]
-
+  
   return (
     <Card
-      style={{ width: '100%' }}
       actions={actions}
     >
       <Meta

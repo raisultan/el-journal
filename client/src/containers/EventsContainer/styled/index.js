@@ -10,3 +10,9 @@ export const EventsWrapper = styled.div`
     grid-template-columns: 1fr;
   }
 `
+
+export const ButtonsWrapper = styled.div`
+  width: 55%;
+  display: flex;
+  justify-content: space-between;
+`

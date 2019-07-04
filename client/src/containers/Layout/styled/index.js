@@ -33,3 +33,22 @@ export const StyledLogoDiv = styled.div`
   background: whitesmoke;
   margin: 16px;
 `
+
+export const StyledSearchBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+export const StyledHorizontalBlock = styled.div`
+  display: flex;
+  flex-direction: row;
+`
+export const StyledAwayBlock = styled.div`
+  width: ${props => props.width};
+  display: flex;
+  justify-content: space-between;
+`
+
+export const LeftAlignedBlock = styled.div`
+  width: 100%;
+`
