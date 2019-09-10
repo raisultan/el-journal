@@ -102,14 +102,13 @@ const SubHeader = () => {
     if (routeName.includes('account')) return accountPanel
     else return null
   }
-    
 
   return (
     <Header style={{ background: 'whitesmoke', padding: 0, height: '80px'}}>
       <StyledHeader>
         <h2>{routeTranslator(history.location.pathname)}</h2>
         {functionPanel(history.location.pathname)}
-      </StyledHeader>      
+      </StyledHeader>
     </Header>
   )
 }

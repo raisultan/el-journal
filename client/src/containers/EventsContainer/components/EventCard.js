@@ -22,7 +22,7 @@ export default ({title, desc, date}) => {
       icon="ellipsis"
     />
   ]
-  
+
   return (
     <Card
       actions={actions}
