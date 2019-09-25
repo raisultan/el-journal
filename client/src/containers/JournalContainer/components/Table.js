@@ -1,7 +1,18 @@
 import React from 'react'
+import BootstrapTable from 'react-bootstrap-table-next'
+import cellEditFactory from 'react-bootstrap-table2-editor'
 
-import { Table, Divider, Tag } from 'antd'
+const EditableTable = ({columns, data}) => {
 
-const { Column, ColumnGroup } = Table
+  return (
+    <BootstrapTable
+      keyField="id"
+      data={ data }
+      columns={ columns }
+      cellEdit={ cellEditFactory({ mode: 'click' }) }
+    />
+  )
+}
 
-export default ({columns, data}) => (<Table columns={columns} dataSource={data} />)
+
+export default EditableTable
