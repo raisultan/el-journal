@@ -27,7 +27,7 @@ const options = [
 ]
 
 const SubHeader = () => {
-
+/*
   const markButtons = (
     <VerticalGridBlock>
       <CustomButton
@@ -59,7 +59,7 @@ const SubHeader = () => {
       />
     </VerticalGridBlock>
   )
-
+*/
   const eventsPanel = (
     <>
       <LabeledDropdown
@@ -80,8 +80,8 @@ const SubHeader = () => {
           tip="Выберите класс"
           options={options}
       />
-      {attenButtons}
-      {markButtons}
+      {/* {attenButtons} */}
+      {/* {markButtons} */}
     </>
   )
 
