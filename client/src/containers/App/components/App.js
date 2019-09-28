@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Router, Route } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 import { PrivateRoute } from '../../../shared/components'
 import { history } from '../../../redux/helpers'
@@ -18,4 +19,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default connect()(App)

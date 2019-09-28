@@ -10,6 +10,13 @@ export const EventsWrapper = styled.div`
     grid-template-columns: 1fr;
   }
 `
+export const StyledCentererWrapper = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 
 export const ButtonsWrapper = styled.div`
   width: 55%;

@@ -5,7 +5,7 @@ import {
 import { connect } from 'react-redux'
 
 import { userActions } from '../../redux/actions'
-import { 
+import {
   StyledCentererWrapper,
   StyledAuthWrapper,
   StyledCentererLabel,
@@ -42,13 +42,13 @@ const NormalLoginForm = ({ form, dispatch, loggingIn, loginFail, errorMessage, l
   return (
     <StyledCentererWrapper>
       <StyledAuthWrapper>
-        { 
+        {
           loggingIn ? <Spin tip="Входим в аккаунт..." />
           :
           <>
             <StyledCentererLabel>Войти в систему</StyledCentererLabel>
             { loginFail ? loginError(errorMessage) : null }
-            <Form onSubmit={handleSubmit} className="login-form"> 
+            <Form onSubmit={handleSubmit} className="login-form">
               <Form.Item>
                 {getFieldDecorator('username', {
                   rules: [{ required: true, message: 'Пожалуйста, введите имя пользователя!' }],
@@ -75,12 +75,12 @@ const NormalLoginForm = ({ form, dispatch, loggingIn, loginFail, errorMessage, l
                 <Button
                   block
                   type="primary"
-                  htmlType="submit" 
+                  htmlType="submit"
                   className="login-form-button"
-                  disabled={!isSubmittable(getFieldValue)}  
+                  disabled={!isSubmittable(getFieldValue)}
                 >
                   Войти
-                </Button>            
+                </Button>
               </Form.Item>
             </Form>
           </>

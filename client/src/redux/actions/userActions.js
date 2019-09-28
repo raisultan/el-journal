@@ -1,18 +1,22 @@
 import axios from 'axios'
-import { userConstants } from '../constants' 
-import { history } from '../helpers' 
+import { userConstants } from '../constants'
+import { history } from '../helpers'
+
+import {events} from '../helpers/initialData'
 
 export const userActions = {
     login,
     logout,
-} 
+    fetchEvents,
+}
 
 const LINK = 'http://7dea414a.ngrok.io'
 const LOCAL = 'http://192.168.0.105:3000'
 
+// auth actions
 function login(user) {
     return async dispatch => {
-        dispatch(request({ user })) 
+        dispatch(request({ user }))
 
         //needs to be tested
         // try {
@@ -30,7 +34,6 @@ function login(user) {
         //     dispatch(alertActions.error(e.response.data.message))
         // }
 
-        
         if (user.username === 'test') {
             setTimeout(() => {
                 dispatch(success(user))
@@ -50,15 +53,57 @@ function login(user) {
         //         dispatch(failure(e.response.data.message))
         //         dispatch(alertActions.error(e.response.data.message))
         //     })
-    } 
+    }
 
     function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
     function success(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
     function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
 }
-
 function logout() {
     localStorage.removeItem('user')
     history.replace('/')
-    return { type: userConstants.LOGOUT } 
+    return { type: userConstants.LOGOUT }
+}
+
+function fetchEvents() {
+    return async dispatch => {
+        dispatch(fetchEventsPending());
+        setTimeout(() => {
+            dispatch(fetchEventsSuccess(events))
+        }, 1000)
+        /*
+        fetch('someurl.com/api')
+        .then(res => res.json())
+        .then(res => {
+            if(res.error) {
+                throw(res.error)
+            }
+            dispatch(fetchEventsSuccess(res.events))
+        })
+        .catch(error => {
+            dispatch(fetchEventsError(error))
+        })
+        */
+    }
+
+    // events actions
+    function fetchEventsPending() {
+        return {
+            type: userConstants.FETCH_EVENTS_PENDING
+        }
+    }
+
+    function fetchEventsSuccess(events) {
+        return {
+            type: userConstants.FETCH_EVENTS_SUCCESS,
+            events: events
+        }
+    }
+
+    function fetchEventsError(error) {
+        return {
+            type: userConstants.FETCH_EVENTS_ERROR,
+            error: error
+        }
+    }
 }

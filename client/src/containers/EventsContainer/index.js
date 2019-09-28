@@ -1,53 +1,58 @@
-import React from 'react'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {Spin} from 'antd'
 
+import {userActions} from '../../redux/actions/userActions'
 import EventCard from './components/EventCard'
-import { EventsWrapper } from './styled'
+import { EventsWrapper, StyledCentererWrapper } from './styled'
 
-const events = [
-  {
-    title: 'Событие №1',
-    desc: 'Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века.',
-    date: '2019-04-11'
-  },
-  {
-    title: 'Событие №2',
-    desc: 'Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века.',
-    date: '2019-04-11'
-  },
-  {
-    title: 'Событие №3',
-    desc: 'Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века.',
-    date: '2019-04-11'
-  },
-  {
-    title: 'Событие №4',
-    desc: 'Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века.',
-    date: '2019-04-11'
-  },
-  {
-    title: 'Событие №5',
-    desc: 'Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века.',
-    date: '2019-04-11'
-  },
-]
+// todo: требуется компонент, который будет отображаться при ошибке
+class EventContainer extends Component {
+  componentWillMount() {
+    const {dispatch} = this.props
+    dispatch(userActions.fetchEvents())
+  }
 
-const EventContainer = ({ dispatch }) => {
-  const cards = (
-    events.map((event) => (
-      <EventCard
-        key={event.title}
-        title={event.title}
-        desc={event.desc}
-        date={event.date}
-      />
-    ))
-  )
+  shouldComponentRender() {
+    const {pending} = this.props
+    if(this.pending === false) return false
+    else return true
+  }
 
-  return (
-    <EventsWrapper>
-      {cards}
-    </ EventsWrapper>
-  )
+  render() {
+    const {events, error, pending} = this.props
+    const cards = (
+      events.map((event) => (
+        <EventCard
+          key={event.title}
+          title={event.title}
+          desc={event.desc}
+          date={event.date}
+        />
+      ))
+    )
+
+    return (
+      <StyledCentererWrapper>
+        {
+          pending ? <Spin tip="Подгружаем события..." />
+          :
+          <EventsWrapper>
+            {cards}
+          </EventsWrapper>
+        }
+      </StyledCentererWrapper>
+    )
+  }
 }
 
-export default EventContainer
+const mapStateToProps = state => {
+  const {events, pending, error} = state.fetchEvents
+  return {
+    events,
+    pending,
+    error
+  }
+}
+
+export default connect(mapStateToProps)(EventContainer)
