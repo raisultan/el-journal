@@ -5,7 +5,6 @@ export const TableCard = styled.div`
   width: 100%;
   border: 1px solid #d4d6db;
 `
-
 export const TimeTableCardsWrapper = styled.div`
   display: grid;
   grid-template-rows: auto;
@@ -15,4 +14,12 @@ export const TimeTableCardsWrapper = styled.div`
   @media (max-width: 1200px) {
     grid-template-columns: 1fr;
   }
+`
+
+export const StyledCentererWrapper = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `

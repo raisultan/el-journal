@@ -2,12 +2,14 @@ import axios from 'axios'
 import { userConstants } from '../constants'
 import { history } from '../helpers'
 
-import {events} from '../helpers/initialData'
+import {events, timetable, journal} from '../helpers/initialData'
 
 export const userActions = {
     login,
     logout,
     fetchEvents,
+    fetchTimeTable,
+    fetchJournal,
 }
 
 const LINK = 'http://7dea414a.ngrok.io'
@@ -103,6 +105,92 @@ function fetchEvents() {
     function fetchEventsError(error) {
         return {
             type: userConstants.FETCH_EVENTS_ERROR,
+            error: error
+        }
+    }
+}
+
+function fetchTimeTable() {
+    return async dispatch => {
+        dispatch(fetchTimeTablePending());
+        setTimeout(() => {
+            dispatch(fetchTimeTableSuccess(timetable))
+        }, 1000)
+        /*
+        fetch('someurl.com/api')
+        .then(res => res.json())
+        .then(res => {
+            if(res.error) {
+                throw(res.error)
+            }
+            dispatch(fetchTimeTableSuccess(res.events))
+        })
+        .catch(error => {
+            dispatch(fetchTimeTableError(error))
+        })
+        */
+    }
+
+    // events actions
+    function fetchTimeTablePending() {
+        return {
+            type: userConstants.FETCH_TIMETABLE_PENDING
+        }
+    }
+
+    function fetchTimeTableSuccess(timetable) {
+        return {
+            type: userConstants.FETCH_TIMETABLE_SUCCESS,
+            timetable
+        }
+    }
+
+    function fetchTimeTableError(error) {
+        return {
+            type: userConstants.FETCH_TIMETABLE_ERROR,
+            error: error
+        }
+    }
+}
+
+function fetchJournal() {
+    return async dispatch => {
+        dispatch(fetchJournalPending());
+        setTimeout(() => {
+            dispatch(fetchJournalSuccess(journal))
+        }, 1000)
+        /*
+        fetch('someurl.com/api')
+        .then(res => res.json())
+        .then(res => {
+            if(res.error) {
+                throw(res.error)
+            }
+            dispatch(fetchTimeJournalSuccess(res.events))
+        })
+        .catch(error => {
+            dispatch(fetchJournalError(error))
+        })
+        */
+    }
+
+    // events actions
+    function fetchJournalPending() {
+        return {
+            type: userConstants.FETCH_JOURNAL_PENDING
+        }
+    }
+
+    function fetchJournalSuccess(journal) {
+        return {
+            type: userConstants.FETCH_JOURNAL_SUCCESS,
+            journal
+        }
+    }
+
+    function fetchJournalError(error) {
+        return {
+            type: userConstants.FETCH_JOURNAL_ERROR,
             error: error
         }
     }

@@ -1,366 +1,48 @@
-import React, { useEffect } from 'react'
+import React, {Component} from 'react'
 import { connect } from 'react-redux'
+import {Spin} from 'antd'
 
 import TimeTableCard from './components/TimeTableCard'
-import { TimeTableCardsWrapper } from './styled'
+import { TimeTableCardsWrapper, StyledCentererWrapper } from './styled'
+import { userActions } from '../../redux/actions/userActions'
 
-const tt_student = [
-  {
-    day: 'Понедельник',
-    data: [{
-      key: '1',
-      number: '1',
-      subject: 'Химия',
-      teacher: 'В. И. Ивановна',
-      cab: '312',
-      time: '10:15 - 12:00'
-    },
-    {
-      key: '2',
-      number: '2',
-      subject: 'Математика',
-      teacher: 'В. И. Ивановна',
-      cab: '100',
-      time: '10:15 - 12:00'
-    },
-    {
-      key: '3',
-      number: '3',
-      subject: 'Биология',
-      teacher: 'В. И. Ивановна',
-      cab: '100',
-      time: '10:15 - 12:00'
-    },
-    {
-      key: '4',
-      number: '4',
-      subject: 'Труд',
-      teacher: 'В. И. Ивановна',
-      cab: '100',
-      time: '10:15 - 12:00'
-    }
-    ]
-  },
-  {
-    day: 'Вторник',
-    data: [{
-      key: '1',
-      number: '1',
-      subject: 'Химия',
-      teacher: 'В. И. Ивановна',
-      cab: '312',
-      time: '10:15 - 12:00'
-    },
-    {
-      key: '2',
-      number: '2',
-      subject: 'Математика',
-      teacher: 'В. И. Ивановна',
-      cab: '100',
-      time: '10:15 - 12:00'
-    },
-    {
-      key: '3',
-      number: '3',
-      subject: 'Биология',
-      teacher: 'В. И. Ивановна',
-      cab: '100',
-      time: '10:15 - 12:00'
-    },
-    {
-      key: '4',
-      number: '4',
-      subject: 'Труд',
-      teacher: 'В. И. Ивановна',
-      cab: '100',
-      time: '10:15 - 12:00'
-    }
-    ]
-  },
-  {
-    day: 'Среда',
-    data: [{
-      key: '1',
-      number: '1',
-      subject: 'Химия',
-      teacher: 'В. И. Ивановна',
-      cab: '312',
-      time: '10:15 - 12:00'
-    },
-    {
-      key: '2',
-      number: '2',
-      subject: 'Математика',
-      teacher: 'В. И. Ивановна',
-      cab: '100',
-      time: '10:15 - 12:00'
-    },
-    {
-      key: '3',
-      number: '3',
-      subject: 'Биология',
-      teacher: 'В. И. Ивановна',
-      cab: '100',
-      time: '10:15 - 12:00'
-    },
-    {
-      key: '4',
-      number: '4',
-      subject: 'Труд',
-      teacher: 'В. И. Ивановна',
-      cab: '100',
-      time: '10:15 - 12:00'
-    }
-    ]
-  },
-  {
-    day: 'Четверг',
-    data: [{
-      key: '1',
-      number: '1',
-      subject: 'Химия',
-      teacher: 'В. И. Ивановна',
-      cab: '312',
-      time: '10:15 - 12:00'
-    },
-    {
-      key: '2',
-      number: '2',
-      subject: 'Математика',
-      teacher: 'В. И. Ивановна',
-      cab: '100',
-      time: '10:15 - 12:00'
-    },
-    {
-      key: '3',
-      number: '3',
-      subject: 'Биология',
-      teacher: 'В. И. Ивановна',
-      cab: '100',
-      time: '10:15 - 12:00'
-    },
-    {
-      key: '4',
-      number: '4',
-      subject: 'Труд',
-      teacher: 'В. И. Ивановна',
-      cab: '100',
-      time: '10:15 - 12:00'
-    }
-    ]
-  },
-  {
-    day: 'Пятница',
-    data: [{
-      key: '1',
-      number: '1',
-      subject: 'Химия',
-      teacher: 'В. И. Ивановна',
-      cab: '312',
-      time: '10:15 - 12:00'
-    },
-    {
-      key: '2',
-      number: '2',
-      subject: 'Математика',
-      teacher: 'В. И. Ивановна',
-      cab: '100',
-      time: '10:15 - 12:00'
-    },
-    {
-      key: '3',
-      number: '3',
-      subject: 'Биология',
-      teacher: 'В. И. Ивановна',
-      cab: '100',
-      time: '10:15 - 12:00'
-    },
-    {
-      key: '4',
-      number: '4',
-      subject: 'Труд',
-      teacher: 'В. И. Ивановна',
-      cab: '100',
-      time: '10:15 - 12:00'
-    }
-    ]
+class TimetableContainer extends Component {
+  componentWillMount() {
+    const {dispatch} = this.props
+    dispatch(userActions.fetchTimeTable())
   }
-]
 
-const tt_teacher = [
-  {
-    day: 'Понедельник',
-    data: [{
-      key: '1',
-      number: '1',
-      subject: 'Химия',
-      cab: '312',
-      time: '10:15 - 12:00'
-    },
-    {
-      key: '2',
-      number: '2',
-      subject: 'Математика',
-      cab: '100',
-      time: '10:15 - 12:00'
-    },
-    {
-      key: '3',
-      number: '3',
-      subject: 'Биология',
-      cab: '100',
-      time: '10:15 - 12:00'
-    },
-    {
-      key: '4',
-      number: '4',
-      subject: 'Труд',
-      cab: '100',
-      time: '10:15 - 12:00'
-    }
-    ]
-  },
-  {
-    day: 'Вторник',
-    data: [{
-      key: '1',
-      number: '1',
-      subject: 'Химия',
-      cab: '312',
-      time: '10:15 - 12:00'
-    },
-    {
-      key: '2',
-      number: '2',
-      subject: 'Математика',
-      cab: '100',
-      time: '10:15 - 12:00'
-    },
-    {
-      key: '3',
-      number: '3',
-      subject: 'Биология',
-      cab: '100',
-      time: '10:15 - 12:00'
-    },
-    {
-      key: '4',
-      number: '4',
-      subject: 'Труд',
-      cab: '100',
-      time: '10:15 - 12:00'
-    }
-    ]
-  },
-  {
-    day: 'Среда',
-    data: [{
-      key: '1',
-      number: '1',
-      subject: 'Химия',
-      cab: '312',
-      time: '10:15 - 12:00'
-    },
-    {
-      key: '2',
-      number: '2',
-      subject: 'Математика',
-      cab: '100',
-      time: '10:15 - 12:00'
-    },
-    {
-      key: '3',
-      number: '3',
-      subject: 'Биология',
-      cab: '100',
-      time: '10:15 - 12:00'
-    },
-    {
-      key: '4',
-      number: '4',
-      subject: 'Труд',
-      cab: '100',
-      time: '10:15 - 12:00'
-    }
-    ]
-  },
-  {
-    day: 'Четверг',
-    data: [{
-      key: '1',
-      number: '1',
-      subject: 'Химия',
-      cab: '312',
-      time: '10:15 - 12:00'
-    },
-    {
-      key: '2',
-      number: '2',
-      subject: 'Математика',
-      cab: '100',
-      time: '10:15 - 12:00'
-    },
-    {
-      key: '3',
-      number: '3',
-      subject: 'Биология',
-      cab: '100',
-      time: '10:15 - 12:00'
-    },
-    {
-      key: '4',
-      number: '4',
-      subject: 'Труд',
-      cab: '100',
-      time: '10:15 - 12:00'
-    }
-    ]
-  },
-  {
-    day: 'Пятница',
-    data: [{
-      key: '1',
-      number: '1',
-      subject: 'Химия',
-      cab: '312',
-      time: '10:15 - 12:00'
-    },
-    {
-      key: '2',
-      number: '2',
-      subject: 'Математика',
-      cab: '100',
-      time: '10:15 - 12:00'
-    },
-    {
-      key: '3',
-      number: '3',
-      subject: 'Биология',
-      cab: '100',
-      time: '10:15 - 12:00'
-    },
-    {
-      key: '4',
-      number: '4',
-      subject: 'Труд',
-      cab: '100',
-      time: '10:15 - 12:00'
-    }
-    ]
+  render() {
+    const {timetable, pending, error} = this.props
+    const cards = timetable.map(d => {
+      return <TimeTableCard key={d.day} type='student' day={d.day} data={d.data}/>
+    })
+
+    return (
+      <>
+        {
+          pending
+          ?
+          <StyledCentererWrapper>
+            <Spin tip="Подгружаем расписание..." />
+          </StyledCentererWrapper>
+          :
+          <TimeTableCardsWrapper>
+            {cards}
+          </TimeTableCardsWrapper>
+        }
+      </>
+    )
   }
-]
-
-
-const TimetableContainer = (props) => {
- const cards = tt_student.map(d => {
-    return <TimeTableCard key={d.day} type='student' day={d.day} data={d.data}/>
-  })
-
- return (
-    <TimeTableCardsWrapper>
-      {cards}
-    </TimeTableCardsWrapper>
-  )
 }
 
-export default connect()(TimetableContainer)
+const mapStateToProps = state => {
+  const {timetable, pending, error} = state.fetchTimeTable
+  return {
+    timetable,
+    pending,
+    error
+  }
+}
+
+export default connect(mapStateToProps)(TimetableContainer)

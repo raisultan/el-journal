@@ -1,3 +1,6 @@
+import React from 'react'
+import {Select} from 'antd'
+
 //  events container data
 export const events = [
   {
@@ -28,7 +31,7 @@ export const events = [
 ]
 
 // journal container data
-export const columns = [
+const columns = [
         { title: '№', dataIndex: 'number'},
         { title: 'Фамилия', dataIndex: 'surname', initialEditValue: 'initial edit value'},
         { title: 'Имя', dataIndex: 'name' },
@@ -38,20 +41,38 @@ export const columns = [
         { title: '04/09/2019', dataIndex: 'date4-09-2019'},
         { title: '05/09/2019', dataIndex: 'date5-09-2019'},
         { title: '06/09/2019', dataIndex: 'date6-09-2019'},
-
 ]
 
-export const data = []
+function handleChange(value) {
+  console.log(`selected ${value}`)
+}
+const { Option } = Select
+
+const cellContent = <Select defaultValue="attended" style={{ width: 70 }} onChange={handleChange}>
+          <Option value="attended"><span role="img" aria-label="check">✔</span>️</Option>
+          <Option value="absent"><span role="img" aria-label="cross">❌</span></Option>
+          <Option value="five">5</Option>
+          <Option value="four">4</Option>
+          <Option value="three">3</Option>
+          <Option value="two">2</Option>
+        </Select>
+const data = []
+
 for (let i=1; i <= 30; i++) {
     const temp = {key: `${i-1}`, name: 'Raysultan', surname: 'Karimov', number: `${i}`}
     for (let g = 1; g <= 6; g++) {
-        temp[`date${g}-09-2019`] = 'attended'
+        temp[`date${g}-09-2019`] = cellContent
     }
     data.push(temp)
 }
 
+export const journal= {
+  columns,
+  data
+}
+
 // timetable container data
-export const tt_student = [
+export const timetable = [
   {
     day: 'Понедельник',
     data: [{

@@ -8,15 +8,9 @@ import { EventsWrapper, StyledCentererWrapper } from './styled'
 
 // todo: требуется компонент, который будет отображаться при ошибке
 class EventContainer extends Component {
-  componentWillMount() {
+ componentWillMount() {
     const {dispatch} = this.props
     dispatch(userActions.fetchEvents())
-  }
-
-  shouldComponentRender() {
-    const {pending} = this.props
-    if(this.pending === false) return false
-    else return true
   }
 
   render() {

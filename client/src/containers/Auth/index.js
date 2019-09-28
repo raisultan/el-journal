@@ -29,7 +29,6 @@ const NormalLoginForm = ({ form, dispatch, loggingIn, loginFail, errorMessage, l
     e.preventDefault();
     form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
         dispatch(userActions.login(values))
       }
     });
