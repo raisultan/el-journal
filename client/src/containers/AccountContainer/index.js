@@ -1,18 +1,40 @@
-import React from 'react'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {Spin} from 'antd'
 
+import {userActions} from '../../redux/actions/userActions'
 import AccountCard from './components/AccountCard'
+import { CenterBlock } from './styled'
 
-const user = {
-  name: 'Антон',
-  surname: 'Забалотный',
-  lastname: 'Генадьевич',
-  birth: '09.04.1989',
-  address: 'Красноярск, ул. Киренского 78б, кв. 31',
-  phone: '+79618913285',
+class AccountContainer extends Component {
+  componentWillMount() {
+    const {dispatch} = this.props
+    dispatch(userActions.fetchAccount())
+  }
+
+  render() {
+    const {account, pending, error} = this.props
+    return (
+      <CenterBlock>
+        {
+          pending
+          ?
+          <Spin tip="Подгружаем данные о пользователе..." />
+          :
+          <AccountCard user={account}/>
+        }
+      </CenterBlock>
+    )
+  }
 }
 
-export default () => {
-  return (
-    <AccountCard user={user}/>
-  )
+const mapStateToProps = state => {
+  const {account, pending, error} = state.fetchAccount
+  return {
+    account,
+    pending,
+    error
+  }
 }
+
+export default connect(mapStateToProps)(AccountContainer)

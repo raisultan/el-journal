@@ -417,3 +417,77 @@ export const tt_teacher = [
     ]
   }
 ]
+
+// subheader
+export const subheader = [
+  {
+    name: '7A'
+  },
+  {
+    name: '3Б'
+  },
+  {
+    name: '11Г'
+  },
+  {
+    name: '5Е'
+  }
+]
+
+// header
+export const header = [
+  {
+    name: 'Геометрия'
+  },
+  {
+    name: 'Алгебра'
+  },
+  {
+    name: 'Физика'
+  }
+]
+
+// account
+export const account = {
+  name: 'Антон',
+  surname: 'Забалотный',
+  lastname: 'Генадьевич',
+  birth: '09.04.1989',
+  address: 'Красноярск, ул. Киренского 78б, кв. 31',
+  phone: '+79618913285',
+}
+
+/*
+  const markButtons = (
+    <VerticalGridBlock>
+      <CustomButton
+        label="Поставить 5"
+      />
+      <CustomButton
+        label="Поставить 4"
+      />
+      <CustomButton
+        label="Поставить 3"
+      />
+      <CustomButton
+        label="Поставить 2"
+      />
+    </VerticalGridBlock>
+  )
+
+  const attenButtons = (
+    <VerticalGridBlock>
+      <CustomButton
+        label="Отметить об отсутствии без причины"
+        theme="red"
+        icon="frown"
+      />
+      <CustomButton
+        label="Отметить об отсутствии по причине"
+        theme="green"
+        icon="smile"
+      />
+    </VerticalGridBlock>
+  )
+*/
+ 

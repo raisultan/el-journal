@@ -1,25 +1,25 @@
-import { userConstants } from '../constants'
+import {userConstants} from '../constants'
 
-export const initialState = {
+const initialState = {
     pending: false,
-    journal: {},
+    account: {},
     error: null
 }
 
-export function fetchJournal(state = initialState, action) {
-    switch(action.type) {
-        case userConstants.FETCH_JOURNAL_PENDING:
+export function fetchAccount(state=initialState, action) {
+    switch (action.type) {
+        case userConstants.FETCH_ACCOUNT_PENDING:
             return {
                 ...state,
                 pending: true
             }
-        case userConstants.FETCH_JOURNAL_SUCCESS:
+        case userConstants.FETCH_ACCOUNT_SUCCESS:
             return {
                 ...state,
                 pending: false,
-                journal: action.journal
+                account: action.account
             }
-        case userConstants.FETCH_JOURNAL_FAILURE:
+        case userConstants.FETCH_ACCOUNT_ERROR:
             return {
                 ...state,
                 pending: false,

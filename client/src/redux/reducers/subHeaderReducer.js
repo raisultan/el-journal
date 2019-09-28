@@ -2,24 +2,24 @@ import { userConstants } from '../constants'
 
 export const initialState = {
     pending: false,
-    journal: {},
+    subheader: [],
     error: null
 }
 
-export function fetchJournal(state = initialState, action) {
+export function fetchSubHeader(state = initialState, action) {
     switch(action.type) {
-        case userConstants.FETCH_JOURNAL_PENDING:
+        case userConstants.FETCH_SUBHEADER_PENDING:
             return {
                 ...state,
                 pending: true
             }
-        case userConstants.FETCH_JOURNAL_SUCCESS:
+        case userConstants.FETCH_SUBHEADER_SUCCESS:
             return {
                 ...state,
                 pending: false,
-                journal: action.journal
+                subheader: action.subheader
             }
-        case userConstants.FETCH_JOURNAL_FAILURE:
+        case userConstants.FETCH_SUBHEADER_FAILURE:
             return {
                 ...state,
                 pending: false,

@@ -1,25 +1,25 @@
-import { userConstants } from '../constants'
+import {userConstants} from '../constants'
 
-export const initialState = {
+const initialState = {
+    header: [],
     pending: false,
-    journal: {},
     error: null
 }
 
-export function fetchJournal(state = initialState, action) {
+export function fetchHeader(state=initialState, action) {
     switch(action.type) {
-        case userConstants.FETCH_JOURNAL_PENDING:
+        case userConstants.FETCH_HEADER_PENDING:
             return {
                 ...state,
                 pending: true
             }
-        case userConstants.FETCH_JOURNAL_SUCCESS:
+        case userConstants.FETCH_HEADER_SUCCESS:
             return {
                 ...state,
                 pending: false,
-                journal: action.journal
+                header: action.header
             }
-        case userConstants.FETCH_JOURNAL_FAILURE:
+        case userConstants.FETCH_HEADER_ERROR:
             return {
                 ...state,
                 pending: false,

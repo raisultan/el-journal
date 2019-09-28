@@ -6,11 +6,11 @@ import { CenterBlock, StyledAccountCard } from '../styled';
 const { Text } = Typography
 
 export default ({ user }) => {
-  const { name, 
-    surname, 
-    lastname, 
-    birth, 
-    address, 
+  const { name,
+    surname,
+    lastname,
+    birth,
+    address,
     phone} = user
   return (
     <CenterBlock>

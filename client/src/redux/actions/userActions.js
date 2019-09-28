@@ -2,7 +2,13 @@ import axios from 'axios'
 import { userConstants } from '../constants'
 import { history } from '../helpers'
 
-import {events, timetable, journal} from '../helpers/initialData'
+import {events,
+    timetable,
+    journal,
+    subheader,
+    header,
+    account
+} from '../helpers/initialData'
 
 export const userActions = {
     login,
@@ -10,6 +16,9 @@ export const userActions = {
     fetchEvents,
     fetchTimeTable,
     fetchJournal,
+    fetchSubHeader,
+    fetchHeader,
+    fetchAccount,
 }
 
 const LINK = 'http://7dea414a.ngrok.io'
@@ -191,6 +200,135 @@ function fetchJournal() {
     function fetchJournalError(error) {
         return {
             type: userConstants.FETCH_JOURNAL_ERROR,
+            error: error
+        }
+    }
+}
+
+function fetchSubHeader() {
+    return async dispatch => {
+        dispatch(fetchSubHeaderPending());
+        setTimeout(() => {
+            dispatch(fetchSubHeaderSuccess(subheader))
+        }, 1000)
+        /*
+        fetch('someurl.com/api')
+        .then(res => res.json())
+        .then(res => {
+            if(res.error) {
+                throw(res.error)
+            }
+            dispatch(fetchTimeJournalSuccess(res.events))
+        })
+        .catch(error => {
+            dispatch(fetchJournalError(error))
+        })
+        */
+    }
+
+    // events actions
+    function fetchSubHeaderPending() {
+        return {
+            type: userConstants.FETCH_SUBHEADER_PENDING
+        }
+    }
+
+    function fetchSubHeaderSuccess(subheader) {
+        return {
+            type: userConstants.FETCH_SUBHEADER_SUCCESS,
+            subheader
+        }
+    }
+
+    function fetchSubHeaderError(error) {
+        return {
+            type: userConstants.FETCH_SUBHEADER_ERROR,
+            error: error
+        }
+    }
+}
+
+function fetchHeader() {
+    return async dispatch => {
+        dispatch(fetchHeaderPending());
+        setTimeout(() => {
+            dispatch(fetchHeaderSuccess(header))
+        }, 1000)
+        /*
+        fetch('someurl.com/api')
+        .then(res => res.json())
+        .then(res => {
+            if(res.error) {
+                throw(res.error)
+            }
+            dispatch(fetchTimeJournalSuccess(res.events))
+        })
+        .catch(error => {
+            dispatch(fetchJournalError(error))
+        })
+        */
+    }
+
+    // events actions
+    function fetchHeaderPending() {
+        return {
+            type: userConstants.FETCH_HEADER_PENDING
+        }
+    }
+
+    function fetchHeaderSuccess(header) {
+        return {
+            type: userConstants.FETCH_HEADER_SUCCESS,
+            header
+        }
+    }
+
+    function fetchHeaderError(error) {
+        return {
+            type: userConstants.FETCH_HEADER_ERROR,
+            error: error
+        }
+    }
+}
+
+function fetchAccount() {
+    return async dispatch => {
+        dispatch(fetchAccountPending());
+        setTimeout(() => {
+            dispatch(fetchAccountSuccess(account))
+        }, 1000)
+        /*
+        fetch('someurl.com/api')
+        .then(res => res.json())
+        .then(res => {
+            if(res.error) {
+                throw(res.error)
+            }
+            dispatch(fetchTimeJournalSuccess(res.events))
+        })
+        .catch(error => {
+            dispatch(fetchJournalError(error))
+        })
+        */
+    }
+
+    // events actions
+    function fetchAccountPending() {
+        return {
+            type: userConstants.FETCH_ACCOUNT_PENDING
+        }
+    }
+
+    function fetchAccountSuccess(account) {
+        return {
+            type: userConstants.FETCH_ACCOUNT_SUCCESS,
+            account
+        }
+    }
+
+    function fetchAccountError(error) {
+        return {
+            type: userConstants.FETCH_ACCOUNT_ERROR,
             error: error
         }
     }
