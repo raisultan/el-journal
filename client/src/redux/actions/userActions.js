@@ -30,30 +30,32 @@ function login(user) {
         dispatch(request({ user }))
 
         //needs to be tested
-        // try {
-        //     const  response = await axios.post(`${LINK}/auth/login`,  user)
-        //     if (response) {
-        //         dispatch(success(response))
-        //         localStorage.setItem('user', JSON.stringify(response.data.token))
-        //         history.push('/')
-        //     } else {
-        //         dispatch(failure('Неизвестная ошибка'))
-        //         dispatch(alertActions.error('Неизвестная ошибка'))
-        //     }
-        // } catch (e) {
-        //     dispatch(failure(e.response.data.message))
-        //     dispatch(alertActions.error(e.response.data.message))
-        // }
-
-        if (user.username === 'test') {
-            setTimeout(() => {
-                dispatch(success(user))
-                localStorage.setItem('user', JSON.stringify(user))
-                history.push('/layout')
-            }, 1000)
-        } else {
-            dispatch(failure('Ошибка'))
+        try {
+            const  response = await axios.post(`${LOCAL}/auth/login`,  user)
+            if (response) {
+                dispatch(success(response))
+                localStorage.setItem('user', JSON.stringify(response.data.token))
+                history.push('/')
+            } else {
+                dispatch(failure('Неизвестная ошибка'))
+                dispatch(failure('Пользователь не найден'))
+            }
+        } catch (e) {
+            dispatch(failure(e.response.data.message))
+            dispatch(failure(e.response.data.message))
         }
+
+        // if (user.username === 'admin') {
+        //     setTimeout(() => {
+        //         dispatch(success(user))
+        //         localStorage.setItem('user', JSON.stringify(user))
+        //         history.push('/layout')
+        //     }, 1000)
+        // } else {
+        //     setTimeout(() => {
+        //         dispatch(failure('Пользователь не найден'))
+        //     }, 500)
+        // }
 
         // axios.post(`${LINK}/auth/login`,  user)
         //     .then(res => {
