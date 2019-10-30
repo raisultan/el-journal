@@ -7,7 +7,6 @@ import {events,
     journal,
     subheader,
     header,
-    account
 } from '../helpers/initialData'
 
 export const userActions = {
@@ -276,24 +275,16 @@ function fetchHeader() {
 }
 
 function fetchAccount() {
-    return async dispatch => {
+    return dispatch => {
         dispatch(fetchAccountPending());
-        setTimeout(() => {
-            dispatch(fetchAccountSuccess(account))
-        }, 1000)
-        /*
-        fetch('someurl.com/api')
-        .then(res => res.json())
+        axios.get('http://localhost:8000/api/1',)
         .then(res => {
-            if(res.error) {
-                throw(res.error)
-            }
-            dispatch(fetchTimeJournalSuccess(res.events))
+            const userAccountInfo = res.data
+            dispatch(fetchAccountSuccess(userAccountInfo))
         })
-        .catch(error => {
-            dispatch(fetchJournalError(error))
+        .catch(err => {
+            dispatch(fetchAccountError(err))
         })
-        */
     }
 
     // events actions
