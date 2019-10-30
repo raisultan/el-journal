@@ -27,12 +27,12 @@ function login(user) {
         dispatch(request(user));
         axios.post('http://localhost:8000/rest-auth/login/', user)
         .then(res => {
-            const token = res.data.key;
-            const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-            localStorage.setItem('token', token);
-            localStorage.setItem('expirationDate', expirationDate);
-            dispatch(success(token));
-            dispatch(checkAuthTimeout(3600));
+            const token = res.data.key
+            const expirationDate = new Date(new Date().getTime() + 3600 * 1000)
+            localStorage.setItem('token', token)
+            localStorage.setItem('expirationDate', expirationDate)
+            dispatch(success(token))
+            dispatch(checkAuthTimeout())
             history.push('/layout')
         })
         .catch(err => {
@@ -40,20 +40,22 @@ function login(user) {
         })
     }
 
-    function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
+    function request(user) { return { type: userConstants.LOGIN_REQUEST } }
     function success(token) { return { type: userConstants.LOGIN_SUCCESS, token } }
     function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
-    function checkAuthTimeout (expirationTime) {
+    function checkAuthTimeout () {
     return dispatch => {
-        setTimeout(() => {
-            dispatch(logout());
-        }, expirationTime * 1000)
+        const expDate = localStorage.getItem('expirationDate');
+        var dateNow = new Date();
+
+        if(expDate == null || expDate < dateNow.getTime())
+            logout()
     }
 }
 }
 
 function logout() {
-    localStorage.removeItem('user')
+    localStorage.removeItem('token')
     history.replace('/')
     return { type: userConstants.LOGOUT }
 }
