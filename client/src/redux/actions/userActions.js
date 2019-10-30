@@ -21,57 +21,37 @@ export const userActions = {
     fetchAccount,
 }
 
-const LINK = 'http://7dea414a.ngrok.io'
-const LOCAL = 'http://192.168.0.105:3000'
-
 // auth actions
 function login(user) {
-    return async dispatch => {
-        dispatch(request({ user }))
-
-        //needs to be tested
-        try {
-            const  response = await axios.post(`${LOCAL}/auth/login`,  user)
-            if (response) {
-                dispatch(success(response))
-                localStorage.setItem('user', JSON.stringify(response.data.token))
-                history.push('/')
-            } else {
-                dispatch(failure('Неизвестная ошибка'))
-                dispatch(failure('Пользователь не найден'))
-            }
-        } catch (e) {
-            dispatch(failure(e.response.data.message))
-            dispatch(failure(e.response.data.message))
-        }
-
-        // if (user.username === 'admin') {
-        //     setTimeout(() => {
-        //         dispatch(success(user))
-        //         localStorage.setItem('user', JSON.stringify(user))
-        //         history.push('/layout')
-        //     }, 1000)
-        // } else {
-        //     setTimeout(() => {
-        //         dispatch(failure('Пользователь не найден'))
-        //     }, 500)
-        // }
-
-        // axios.post(`${LINK}/auth/login`,  user)
-        //     .then(res => {
-        //         dispatch(success(res))
-        //         localStorage.setItem('user', JSON.stringify(res.data.token))
-        //         history.push('/')
-        //     }).catch(e => {
-        //         dispatch(failure(e.response.data.message))
-        //         dispatch(alertActions.error(e.response.data.message))
-        //     })
+    return dispatch => {
+        dispatch(request(user));
+        axios.post('http://localhost:8000/rest-auth/login/', user)
+        .then(res => {
+            const token = res.data.key;
+            const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
+            localStorage.setItem('token', token);
+            localStorage.setItem('expirationDate', expirationDate);
+            dispatch(success(token));
+            dispatch(checkAuthTimeout(3600));
+            history.push('/layout')
+        })
+        .catch(err => {
+            dispatch(failure(err))
+        })
     }
 
     function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
-    function success(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
+    function success(token) { return { type: userConstants.LOGIN_SUCCESS, token } }
     function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
+    function checkAuthTimeout (expirationTime) {
+    return dispatch => {
+        setTimeout(() => {
+            dispatch(logout());
+        }, expirationTime * 1000)
+    }
 }
+}
+
 function logout() {
     localStorage.removeItem('user')
     history.replace('/')
