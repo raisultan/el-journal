@@ -24,33 +24,22 @@ export const userActions = {
 function login(user) {
     return dispatch => {
         dispatch(request(user));
-        axios.post('http://localhost:8000/rest-auth/login/', user)
+        console.log(user);
+        axios.post('http://localhost:8000/api/token/', user)
         .then(res => {
-            const token = res.data.key
-            const expirationDate = new Date(new Date().getTime() + 3600 * 1000)
+            const token = res.data.token
             localStorage.setItem('token', token)
-            localStorage.setItem('expirationDate', expirationDate)
             dispatch(success(token))
-            dispatch(checkAuthTimeout())
             history.push('/layout')
         })
         .catch(err => {
-            dispatch(failure(err))
+            dispatch(failure('Невозможно войти с предоставленными учетными данными'))
         })
     }
 
-    function request(user) { return { type: userConstants.LOGIN_REQUEST } }
+    function request() { return { type: userConstants.LOGIN_REQUEST } }
     function success(token) { return { type: userConstants.LOGIN_SUCCESS, token } }
     function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
-    function checkAuthTimeout () {
-    return dispatch => {
-        const expDate = localStorage.getItem('expirationDate');
-        var dateNow = new Date();
-
-        if(expDate == null || expDate < dateNow.getTime())
-            logout()
-    }
-}
 }
 
 function logout() {
@@ -278,7 +267,7 @@ function fetchHeader() {
 function fetchAccount() {
     return dispatch => {
         dispatch(fetchAccountPending());
-        axios.get('http://localhost:8000/api/5',)
+        axios.get('http://localhost:8000/api/me/',)
         .then(res => {
             const userAccountInfo = res.data
             dispatch(fetchAccountSuccess(userAccountInfo))

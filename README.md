@@ -6,7 +6,6 @@
 * Redux
 * styled-components
 * Axios
-* Node.js
 * PostreSQL
 
 ## Иформация для разработчиков:

@@ -34,7 +34,7 @@ const NormalLoginForm = ({ form, dispatch, loggingIn, loginFail, errorMessage, l
     });
   }
 
-  const isSubmittable = (func) => func('username') && func('password')
+  const isSubmittable = (func) => func('email') && func('password')
 
   const { getFieldDecorator, getFieldValue } = form
 
@@ -49,10 +49,18 @@ const NormalLoginForm = ({ form, dispatch, loggingIn, loginFail, errorMessage, l
             { loginFail ? loginError(errorMessage) : null }
             <Form onSubmit={handleSubmit} className="login-form">
               <Form.Item>
-                {getFieldDecorator('username', {
-                  rules: [{ required: true, message: 'Пожалуйста, введите имя пользователя!' }],
+                {getFieldDecorator('email', {
+                  rules: [
+                    {
+                      type: 'email',
+                      message: 'Не валидный почтовый адрес!'
+                    },
+                    { required: true,
+                      message: 'Пожалуйста, введите ваш почтовый адрес!'
+                    }
+                  ],
                 })(
-                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Имя пользователя" />
+                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="e-mail адрес" />
                 )}
               </Form.Item>
               <Form.Item>
