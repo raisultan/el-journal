@@ -12,7 +12,7 @@ import {events,
 export const userActions = {
     login,
     logout,
-    fetchEvents,
+    fetchEventList,
     fetchTimeTable,
     fetchJournal,
     fetchSubHeader,
@@ -48,37 +48,73 @@ function logout() {
     return { type: userConstants.LOGOUT }
 }
 
-function fetchEvents() {
+function fetchEventList() {
     return dispatch => {
-        dispatch(fetchEventsPending());
+        dispatch(fetchEventListPending());
         const token = localStorage.getItem('token');
         axios.get('http://localhost:8000/api/event/events/', {headers: { 'Authorization': `Token ${token}` }})
         .then(res => {
             const events = res.data
-            dispatch(fetchEventsSuccess(events))
+            dispatch(fetchEventListSuccess(events))
         })
         .catch(err => {
-            dispatch(fetchEventsError('Возникла ощибка'))
+            dispatch(fetchEventListError('Возникла ощибка'))
         })
     }
 
     // events actions
-    function fetchEventsPending() {
+    function fetchEventListPending() {
         return {
-            type: userConstants.FETCH_EVENTS_PENDING
+            type: userConstants.FETCH_EVENT_LIST_PENDING
         }
     }
 
-    function fetchEventsSuccess(events) {
+    function fetchEventListSuccess(events) {
         return {
-            type: userConstants.FETCH_EVENTS_SUCCESS,
+            type: userConstants.FETCH_EVENT_LIST_SUCCESS,
             events: events
         }
     }
 
-    function fetchEventsError(error) {
+    function fetchEventListError(error) {
         return {
-            type: userConstants.FETCH_EVENTS_ERROR,
+            type: userConstants.FETCH_EVENT_LIST_ERROR,
+            error: error
+        }
+    }
+}
+
+function fetchEvent() {
+    return dispatch => {
+        dispatch(fetchEventPending());
+        const token = localStorage.getItem('token');
+        axios.get('http://localhost:8000/api/event/events/', {headers: { 'Authorization': `Token ${token}` }})
+        .then(res => {
+            const events = res.data
+            dispatch(fetchEventSuccess(events))
+        })
+        .catch(err => {
+            dispatch(fetchEventError('Возникла ощибка'))
+        })
+    }
+
+    // events actions
+    function fetchEventPending() {
+        return {
+            type: userConstants.FETCH_EVENT_PENDING
+        }
+    }
+
+    function fetchEventSuccess(events) {
+        return {
+            type: userConstants.FETCH_EVENT_SUCCESS,
+            events: events
+        }
+    }
+
+    function fetchEventError(error) {
+        return {
+            type: userConstants.FETCH_EVENT_ERROR,
             error: error
         }
     }

@@ -6,20 +6,20 @@ export const initialState = {
     error: null
 }
 
-export function fetchEvents(state = initialState, action) {
+export function fetchEventList(state = initialState, action) {
     switch(action.type) {
-        case userConstants.FETCH_EVENTS_PENDING:
+        case userConstants.FETCH_EVENT_LIST_PENDING:
             return {
                 ...state,
                 pending: true
             }
-        case userConstants.FETCH_EVENTS_SUCCESS:
+        case userConstants.FETCH_EVENT_LIST_SUCCESS:
             return {
                 ...state,
                 pending: false,
                 events: action.events
             }
-        case userConstants.FETCH_EVENTS_FAILURE:
+        case userConstants.FETCH_EVENT_LIST_FAILURE:
             return {
                 ...state,
                 pending: false,

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Modal, Button } from 'antd'
 
-import EventEditForm from './EventEditForm'
+import EventAddForm from './EventAddForm'
 
 const EventAddModal = ({butLabel}) => {
   const modal = () => Modal.info({
@@ -10,11 +10,10 @@ const EventAddModal = ({butLabel}) => {
     okText: 'Закрыть',
     content: (
       <>
-        <EventEditForm
+        <EventAddForm
           title={""}
           desc={""}
-          okButLabel={"Добавить"}
-          cancelButLabel={"Отменить"}
+          addButLabel={"Добавить"}
         />
       </>
     ),

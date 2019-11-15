@@ -3,7 +3,8 @@ import { Modal, Button } from 'antd'
 
 import EventEditForm from './EventEditForm'
 
-const EventEditModal = ({title, desc, date, butLabel, icon}) => {
+
+const EventEditModal = ({title, desc, date, butLabel, icon, event_id}) => {
   const modal = () => Modal.info({
     title: 'Изменение события',
     width: '456px',
@@ -14,8 +15,9 @@ const EventEditModal = ({title, desc, date, butLabel, icon}) => {
           title={title}
           desc={desc}
           date={date}
-          okButLabel={"Изменить"}
-          cancelButLabel={"Удалить"}
+          event_id={event_id}
+          editButLabel={"Изменить"}
+          deleteButLabel={"Удалить"}
         />
       </>
     ),

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Modal, Button } from 'antd'
 
+
 const EventPreviewModal = ({title, desc, date, butLabel, icon}) => {
   const modal = () => Modal.info({
     title: title,
