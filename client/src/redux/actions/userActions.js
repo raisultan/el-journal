@@ -49,24 +49,17 @@ function logout() {
 }
 
 function fetchEvents() {
-    return async dispatch => {
+    return dispatch => {
         dispatch(fetchEventsPending());
-        setTimeout(() => {
-            dispatch(fetchEventsSuccess(events))
-        }, 1000)
-        /*
-        fetch('someurl.com/api')
-        .then(res => res.json())
+        const token = localStorage.getItem('token');
+        axios.get('http://localhost:8000/api/event/events/', {headers: { 'Authorization': `Token ${token}` }})
         .then(res => {
-            if(res.error) {
-                throw(res.error)
-            }
-            dispatch(fetchEventsSuccess(res.events))
+            const events = res.data
+            dispatch(fetchEventsSuccess(events))
         })
-        .catch(error => {
-            dispatch(fetchEventsError(error))
+        .catch(err => {
+            dispatch(fetchEventsError('Возникла ощибка'))
         })
-        */
     }
 
     // events actions
@@ -267,13 +260,14 @@ function fetchHeader() {
 function fetchAccount() {
     return dispatch => {
         dispatch(fetchAccountPending());
-        axios.get('http://localhost:8000/api/me/',)
+        const token = localStorage.getItem('token');
+        axios.get('http://localhost:8000/api/me/', {headers: { 'Authorization': `Token ${token}` }})
         .then(res => {
             const userAccountInfo = res.data
             dispatch(fetchAccountSuccess(userAccountInfo))
         })
         .catch(err => {
-            dispatch(fetchAccountError(err))
+            dispatch(fetchAccountError('Возникла ощибка'))
         })
     }
 

@@ -3,6 +3,7 @@ import {
   Form, Input, Button, Icon, DatePicker
 } from 'antd';
 import moment from 'moment'
+import axios from 'axios'
 
 import { ButtonsWrapper } from '../styled'
 
@@ -19,6 +20,14 @@ const EventEditForm = ({form, title, desc, date, okButLabel, cancelButLabel}) =>
         console.log('Received values of form: ', values)
       }
     });
+  }
+
+  const deleteEvent = () => {
+    console.log('Delete')
+  }
+
+  const editEvent = () => {
+    console.log('Edit')
   }
 
   const changeDate = (d, dString) => {
@@ -49,10 +58,10 @@ const EventEditForm = ({form, title, desc, date, okButLabel, cancelButLabel}) =>
       </Form.Item>
       <Form.Item>
         <ButtonsWrapper>
-          <Button type="primary" htmlType="submit" className="login-form-button">
+          <Button type="primary" htmlType="submit" className="login-form-button" onClick={deleteEvent()}>
             {okButLabel}
           </Button>
-          <Button type="danger" htmlType="submit" className="login-form-button">
+          <Button type="danger" htmlType="submit" className="login-form-button" onClick={editEvent()}>
             {cancelButLabel}
           </Button>
         </ButtonsWrapper>

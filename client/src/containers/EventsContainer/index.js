@@ -20,7 +20,7 @@ class EventContainer extends Component {
         <EventCard
           key={event.title}
           title={event.title}
-          desc={event.desc}
+          desc={event.description}
           date={event.date}
         />
       ))
