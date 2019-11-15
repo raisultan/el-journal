@@ -12,7 +12,7 @@ import {events,
 export const userActions = {
     login,
     logout,
-    fetchEvents,
+    fetchEventList,
     fetchTimeTable,
     fetchJournal,
     fetchSubHeader,
@@ -24,33 +24,22 @@ export const userActions = {
 function login(user) {
     return dispatch => {
         dispatch(request(user));
-        axios.post('http://localhost:8000/rest-auth/login/', user)
+        console.log(user);
+        axios.post('http://localhost:8000/api/token/', user)
         .then(res => {
-            const token = res.data.key
-            const expirationDate = new Date(new Date().getTime() + 3600 * 1000)
+            const token = res.data.token
             localStorage.setItem('token', token)
-            localStorage.setItem('expirationDate', expirationDate)
             dispatch(success(token))
-            dispatch(checkAuthTimeout())
             history.push('/layout')
         })
         .catch(err => {
-            dispatch(failure(err))
+            dispatch(failure('Невозможно войти с предоставленными учетными данными'))
         })
     }
 
-    function request(user) { return { type: userConstants.LOGIN_REQUEST } }
+    function request() { return { type: userConstants.LOGIN_REQUEST } }
     function success(token) { return { type: userConstants.LOGIN_SUCCESS, token } }
     function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
-    function checkAuthTimeout () {
-    return dispatch => {
-        const expDate = localStorage.getItem('expirationDate');
-        var dateNow = new Date();
-
-        if(expDate == null || expDate < dateNow.getTime())
-            logout()
-    }
-}
 }
 
 function logout() {
@@ -59,44 +48,73 @@ function logout() {
     return { type: userConstants.LOGOUT }
 }
 
-function fetchEvents() {
-    return async dispatch => {
-        dispatch(fetchEventsPending());
-        setTimeout(() => {
-            dispatch(fetchEventsSuccess(events))
-        }, 1000)
-        /*
-        fetch('someurl.com/api')
-        .then(res => res.json())
+function fetchEventList() {
+    return dispatch => {
+        dispatch(fetchEventListPending());
+        const token = localStorage.getItem('token');
+        axios.get('http://localhost:8000/api/event/events/', {headers: { 'Authorization': `Token ${token}` }})
         .then(res => {
-            if(res.error) {
-                throw(res.error)
-            }
-            dispatch(fetchEventsSuccess(res.events))
+            const events = res.data
+            dispatch(fetchEventListSuccess(events))
         })
-        .catch(error => {
-            dispatch(fetchEventsError(error))
+        .catch(err => {
+            dispatch(fetchEventListError('Возникла ощибка'))
         })
-        */
     }
 
     // events actions
-    function fetchEventsPending() {
+    function fetchEventListPending() {
         return {
-            type: userConstants.FETCH_EVENTS_PENDING
+            type: userConstants.FETCH_EVENT_LIST_PENDING
         }
     }
 
-    function fetchEventsSuccess(events) {
+    function fetchEventListSuccess(events) {
         return {
-            type: userConstants.FETCH_EVENTS_SUCCESS,
+            type: userConstants.FETCH_EVENT_LIST_SUCCESS,
             events: events
         }
     }
 
-    function fetchEventsError(error) {
+    function fetchEventListError(error) {
         return {
-            type: userConstants.FETCH_EVENTS_ERROR,
+            type: userConstants.FETCH_EVENT_LIST_ERROR,
+            error: error
+        }
+    }
+}
+
+function fetchEvent() {
+    return dispatch => {
+        dispatch(fetchEventPending());
+        const token = localStorage.getItem('token');
+        axios.get('http://localhost:8000/api/event/events/', {headers: { 'Authorization': `Token ${token}` }})
+        .then(res => {
+            const events = res.data
+            dispatch(fetchEventSuccess(events))
+        })
+        .catch(err => {
+            dispatch(fetchEventError('Возникла ощибка'))
+        })
+    }
+
+    // events actions
+    function fetchEventPending() {
+        return {
+            type: userConstants.FETCH_EVENT_PENDING
+        }
+    }
+
+    function fetchEventSuccess(events) {
+        return {
+            type: userConstants.FETCH_EVENT_SUCCESS,
+            events: events
+        }
+    }
+
+    function fetchEventError(error) {
+        return {
+            type: userConstants.FETCH_EVENT_ERROR,
             error: error
         }
     }
@@ -274,16 +292,18 @@ function fetchHeader() {
     }
 }
 
+// TODO: check token expiration
 function fetchAccount() {
     return dispatch => {
         dispatch(fetchAccountPending());
-        axios.get('http://localhost:8000/api/1',)
+        const token = localStorage.getItem('token');
+        axios.get('http://localhost:8000/api/me/', {headers: { 'Authorization': `Token ${token}` }})
         .then(res => {
             const userAccountInfo = res.data
             dispatch(fetchAccountSuccess(userAccountInfo))
         })
         .catch(err => {
-            dispatch(fetchAccountError(err))
+            dispatch(fetchAccountError('Возникла ощибка'))
         })
     }
 

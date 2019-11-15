@@ -6,11 +6,10 @@ import {userActions} from '../../redux/actions/userActions'
 import EventCard from './components/EventCard'
 import { EventsWrapper, StyledCentererWrapper } from './styled'
 
-// todo: требуется компонент, который будет отображаться при ошибке
 class EventContainer extends Component {
  componentWillMount() {
     const {dispatch} = this.props
-    dispatch(userActions.fetchEvents())
+    dispatch(userActions.fetchEventList())
   }
 
   render() {
@@ -20,13 +19,16 @@ class EventContainer extends Component {
         <EventCard
           key={event.title}
           title={event.title}
-          desc={event.desc}
+          desc={event.description}
           date={event.date}
+          event_id={event.id}
         />
       ))
     )
 
     return (
+      error ? error
+      :
       <StyledCentererWrapper>
         {
           pending ? <Spin tip="Подгружаем события..." />
@@ -41,7 +43,7 @@ class EventContainer extends Component {
 }
 
 const mapStateToProps = state => {
-  const {events, pending, error} = state.fetchEvents
+  const {events, pending, error} = state.fetchEventList
   return {
     events,
     pending,

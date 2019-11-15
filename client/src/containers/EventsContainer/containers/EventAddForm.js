@@ -6,11 +6,11 @@ import moment from 'moment'
 import axios from 'axios'
 
 import { ButtonsWrapper } from '../styled'
-import { dateTimeConverter, prettifyInitialDjangoDateTime, prettifyDjangoDateTime } from '../../../utils/index'
+import { dateTimeConverter } from '../../../utils/index'
 
 const { TextArea } = Input
 
-const EventEditForm = ({form, title, desc, date, event_id, editButLabel, deleteButLabel}) => {
+const EventAddForm = ({form, title, desc, date, addButLabel, cancelButLabel}) => {
   const [eventDate, setEventDate] = useState(date)
 
   const handleSubmit = (e) => {
@@ -20,8 +20,7 @@ const EventEditForm = ({form, title, desc, date, event_id, editButLabel, deleteB
         values = {...values, date: dateTimeConverter(typeof(eventDate) === 'string' ? eventDate : eventDate._i) }
         console.log('Received values of form: ', values)
         const token = localStorage.getItem('token')
-        console.log('THIS IS WHAT WE ARE SENDING:', values)
-        axios.patch(`http://localhost:8000/api/event/events/${event_id}/`, values, {headers: { 'Authorization': `Token ${token}` }})
+        axios.post(`http://localhost:8000/api/event/events/`, values, {headers: { 'Authorization': `Token ${token}` }})
         .then(res => {
             window.location.reload()
         })
@@ -33,21 +32,7 @@ const EventEditForm = ({form, title, desc, date, event_id, editButLabel, deleteB
     });
   }
 
-  const deleteEvent = e => {
-    e.preventDefault()
-    const token = localStorage.getItem('token')
-    axios.delete(`http://localhost:8000/api/event/events/${event_id}/`, {headers: { 'Authorization': `Token ${token}` }})
-    .then(res => {
-        window.location.reload()
-    })
-    .catch(err => {
-        console.log(err)
-        alert('Возникла ощибка')
-    })
-  }
-
   const changeDate = (d, dString) => {
-    console.log(eventDate)
     setEventDate(dString)
   }
 
@@ -66,11 +51,6 @@ const EventEditForm = ({form, title, desc, date, event_id, editButLabel, deleteB
         )}
       </Form.Item>
       <Form.Item>
-        {getFieldDecorator('id', {initialValue: event_id})(
-          <Input prefix={<Icon type="edit" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="ID" />
-        )}
-      </Form.Item>
-      <Form.Item>
         {getFieldDecorator('description', {initialValue: desc})(
           <TextArea autosize={true} style={textAreaStyle} placeholder="Описание" />
         )}
@@ -81,10 +61,7 @@ const EventEditForm = ({form, title, desc, date, event_id, editButLabel, deleteB
       <Form.Item>
         <ButtonsWrapper>
           <Button type="primary" htmlType='submit' className="login-form-button" onSubmit={handleSubmit}>
-            {editButLabel}
-          </Button>
-          <Button type="danger" className="login-form-button" onClick={deleteEvent}>
-            {deleteButLabel}
+            {addButLabel}
           </Button>
         </ButtonsWrapper>
       </Form.Item>
@@ -92,4 +69,4 @@ const EventEditForm = ({form, title, desc, date, event_id, editButLabel, deleteB
   )
 }
 
-export default Form.create({ name: 'editEventForm' })(EventEditForm)
+export default Form.create({ name: 'addEventForm' })(EventAddForm)
