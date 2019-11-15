@@ -274,10 +274,11 @@ function fetchHeader() {
     }
 }
 
+// TODO: check token expiration
 function fetchAccount() {
     return dispatch => {
         dispatch(fetchAccountPending());
-        axios.get('http://localhost:8000/api/1',)
+        axios.get('http://localhost:8000/api/5',)
         .then(res => {
             const userAccountInfo = res.data
             dispatch(fetchAccountSuccess(userAccountInfo))
