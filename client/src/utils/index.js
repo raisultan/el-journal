@@ -1,3 +1,6 @@
+import { notification } from 'antd'
+
+
 export const routeTranslator = (routeName) => {
   if (routeName.includes('journal')) return 'Журнал'
   if (routeName.includes('timetable')) return 'Расписание'
@@ -32,4 +35,11 @@ export const prettifyDjangoDateTime = str => {
 
 export const prettifyInitialDjangoDateTime = str => {
   return str.replace('-', '.')
+}
+
+export const openNotification = (msg, desc) => {
+  notification.open({
+    message: msg,
+    description: desc,
+  })
 }

@@ -25,7 +25,7 @@ function login(user) {
     return dispatch => {
         dispatch(request(user));
         console.log(user);
-        axios.post('http://localhost:8000/api/token/', user)
+        axios.post('http://localhost:8000/api/user/token/', user)
         .then(res => {
             const token = res.data.token
             localStorage.setItem('token', token)
@@ -297,7 +297,7 @@ function fetchAccount() {
     return dispatch => {
         dispatch(fetchAccountPending());
         const token = localStorage.getItem('token');
-        axios.get('http://localhost:8000/api/me/', {headers: { 'Authorization': `Token ${token}` }})
+        axios.get('http://localhost:8000/api/user/me/', {headers: { 'Authorization': `Token ${token}` }})
         .then(res => {
             const userAccountInfo = res.data
             dispatch(fetchAccountSuccess(userAccountInfo))
