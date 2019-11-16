@@ -8,7 +8,6 @@ import { StyledHeader, LeftAlignedBlock } from '../styled'
 import { routeTranslator } from '../../../utils'
 import { history } from '../../../redux/helpers'
 import EventAddModal from '../../EventsContainer/containers/EventAddModal'
-import TimeTableSearchBlock from './TimeTableSearchBlock'
 
 const { Header } = Layout
 
@@ -49,10 +48,6 @@ class SubHeader extends Component {
       </>
     )
 
-    const timetablePanel = (
-        <TimeTableSearchBlock />
-    )
-
     const accountPanel = (
       <LeftAlignedBlock>
         <h2>Аккаунт</h2>
@@ -63,7 +58,6 @@ class SubHeader extends Component {
     // consider creating an action, that will be called when route is changed
     const functionPanel = (routeName) => {
       if (routeName.includes('journal')) return journalPanel
-      if (routeName.includes('timetable')) return timetablePanel
       if (routeName.includes('events')) return eventsPanel
       if (routeName.includes('account')) return accountPanel
       else return null
