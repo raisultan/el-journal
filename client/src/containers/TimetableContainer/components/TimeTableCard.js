@@ -2,14 +2,15 @@ import React from 'react'
 import { Table } from 'antd'
 
 import { TableCard } from '../styled'
+import { dayOfWeekTranslator } from '../../../utils/index'
 
 const { Column, ColumnGroup } = Table
 
-const TimeTableContainer = ({type, day, data}) => {
+const TimeTableContainer = ({day_of_week, lessons, class_name}) => {
   return (
   <TableCard>
-    <Table dataSource={data} pagination={false}>
-      <ColumnGroup title={day}>
+    <Table dataSource={lessons} pagination={false}>
+      <ColumnGroup title={dayOfWeekTranslator(day_of_week)}>
         <Column
           title="№"
           dataIndex="number"
@@ -17,27 +18,24 @@ const TimeTableContainer = ({type, day, data}) => {
         />
         <Column
           title="Предмет"
-          dataIndex="subject"
-          key="subject"
+          dataIndex="subject_name"
+          key="subject_name"
         />
-        {
-          type === 'student' ?
-          <Column
-          title="Учитель"
-          dataIndex="teacher"
-          key="teacher"
-          /> : null
-        }
+        <Column
+          title="Класс"
+          dataIndex="class_name"
+          key="class_name"
+        />
         <Column
           title="Кабинет"
-          dataIndex="cab"
-          key="cab"
+          dataIndex="cabinet"
+          key="cabinet"
         />
         <Column
           title="Время"
           dataIndex="time"
           key="time"
-      />
+        />
       </ColumnGroup>
     </Table>
   </TableCard>

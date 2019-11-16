@@ -15,7 +15,7 @@ class TimetableContainer extends Component {
   render() {
     const {timetable, pending, error} = this.props
     const cards = timetable.map(d => {
-      return <TimeTableCard key={d.day} type='student' day={d.day} data={d.data}/>
+      return <TimeTableCard key={d.day_of_week} day_of_week={d.day_of_week} lessons={d.lessons} class_name={d.class_name}/>
     })
 
     return (
@@ -38,6 +38,7 @@ class TimetableContainer extends Component {
 
 const mapStateToProps = state => {
   const {timetable, pending, error} = state.fetchTimeTable
+  console.log('TIMETABLE:', timetable)
   return {
     timetable,
     pending,

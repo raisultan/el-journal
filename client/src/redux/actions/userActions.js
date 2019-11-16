@@ -121,24 +121,18 @@ function fetchEvent() {
 }
 
 function fetchTimeTable() {
-    return async dispatch => {
+    return dispatch => {
         dispatch(fetchTimeTablePending());
-        setTimeout(() => {
-            dispatch(fetchTimeTableSuccess(timetable))
-        }, 1000)
-        /*
-        fetch('someurl.com/api')
-        .then(res => res.json())
+        const token = localStorage.getItem('token');
+        axios.get('http://localhost:8000/api/timetable/days/', {headers: { 'Authorization': `Token ${token}` }})
         .then(res => {
-            if(res.error) {
-                throw(res.error)
-            }
-            dispatch(fetchTimeTableSuccess(res.events))
+            const timetable = res.data
+            console.log(timetable)
+            dispatch(fetchTimeTableSuccess(timetable))
         })
-        .catch(error => {
-            dispatch(fetchTimeTableError(error))
+        .catch(err => {
+            dispatch(fetchTimeTableError('Возникла ощибка'))
         })
-        */
     }
 
     // events actions

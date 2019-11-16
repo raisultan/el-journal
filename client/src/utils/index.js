@@ -43,3 +43,15 @@ export const openNotification = (msg, desc) => {
     description: desc,
   })
 }
+
+export const dayOfWeekTranslator = str => {
+  const tr_days = {
+    MON: 'Понедельник',
+    TUE: 'Вторник',
+    WED: 'Среда',
+    THU: 'Четверг',
+    FRI: 'Пятница',
+    SAT: 'Суббота',
+  }
+  return tr_days[str]
+}
