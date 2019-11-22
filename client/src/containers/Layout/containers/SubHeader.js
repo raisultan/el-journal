@@ -17,11 +17,11 @@ class SubHeader extends Component {
   }
 
  componentWillMount() {
-    const {dispatch} = this.props
-    dispatch(userActions.fetchSubHeader())
+    const { fetchSubHeader } = this.props
+    fetchSubHeader()
   }
   render() {
-    const {subheader, pending, error} = this.props
+    const {subheader, pending, error, changeSubHeader} = this.props
 
     const eventsPanel = (
       <>
@@ -42,6 +42,7 @@ class SubHeader extends Component {
             label="Класс"
             tip="Выберите класс"
             options={subheader}
+            selectHeader={changeSubHeader}
         />
         {/* {attenButtons} */}
         {/* {markButtons} */}
@@ -83,4 +84,11 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(SubHeader)
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchSubHeader: () => dispatch(userActions.fetchSubHeader()),
+    changeSubHeader: value => dispatch(userActions.selectSubHeader(value))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SubHeader)

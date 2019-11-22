@@ -12,12 +12,12 @@ const { Header } = Layout
 
 class MainHeader extends Component {
   componentWillMount() {
-    const {dispatch} = this.props
-    dispatch(userActions.fetchHeader())
+    const {fetchHeader} = this.props
+    fetchHeader()
   }
 
   render() {
-    const {label, header, pending, error} = this.props
+    const {label, header, pending, error, changeHeader} = this.props
     const upperCaseLabel = label.toUpperCase();
 
     const userLogout = () => {
@@ -32,6 +32,7 @@ class MainHeader extends Component {
             label="Предмет"
             tip="Выберите предмет"
             options={header}
+            selectHeader={changeHeader}
           />
           <StyledAwayBlock width='210px'>
             <Link to="/layout/account">
@@ -66,4 +67,11 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(MainHeader)
+const mapDispatchToProps = dispatch => {
+  return {
+    changeHeader: value => dispatch(userActions.selectHeader(value)),
+    fetchHeader: () => dispatch(userActions.fetchHeader()),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainHeader)

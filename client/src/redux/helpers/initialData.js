@@ -71,6 +71,18 @@ export const journal= {
   data
 }
 
+// have populate data as if it is send from server
+// has to be sorted by surname
+const serverData = [
+  {
+    id: '1',
+    name: 'Иван',
+    surname: 'Иванов',
+    
+  },
+
+]
+
 // timetable container data
 export const timetable = [
   {

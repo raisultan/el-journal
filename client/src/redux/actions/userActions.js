@@ -2,12 +2,7 @@ import axios from 'axios'
 import { userConstants } from '../constants'
 import { history } from '../helpers'
 
-import {events,
-    timetable,
-    journal,
-    subheader,
-    header,
-} from '../helpers/initialData'
+import { journal } from '../helpers/initialData'
 
 export const userActions = {
     login,
@@ -18,9 +13,10 @@ export const userActions = {
     fetchSubHeader,
     fetchHeader,
     fetchAccount,
+    selectHeader,
+    selectSubHeader,
 }
 
-// auth actions
 function login(user) {
     return dispatch => {
         dispatch(request(user));
@@ -84,42 +80,6 @@ function fetchEventList() {
     }
 }
 
-function fetchEvent() {
-    return dispatch => {
-        dispatch(fetchEventPending());
-        const token = localStorage.getItem('token');
-        axios.get('http://localhost:8000/api/event/events/', {headers: { 'Authorization': `Token ${token}` }})
-        .then(res => {
-            const events = res.data
-            dispatch(fetchEventSuccess(events))
-        })
-        .catch(err => {
-            dispatch(fetchEventError('Возникла ощибка'))
-        })
-    }
-
-    // events actions
-    function fetchEventPending() {
-        return {
-            type: userConstants.FETCH_EVENT_PENDING
-        }
-    }
-
-    function fetchEventSuccess(events) {
-        return {
-            type: userConstants.FETCH_EVENT_SUCCESS,
-            events: events
-        }
-    }
-
-    function fetchEventError(error) {
-        return {
-            type: userConstants.FETCH_EVENT_ERROR,
-            error: error
-        }
-    }
-}
-
 function fetchTimeTable() {
     return dispatch => {
         dispatch(fetchTimeTablePending());
@@ -158,24 +118,25 @@ function fetchTimeTable() {
 }
 
 function fetchJournal() {
-    return async dispatch => {
+    // return async dispatch => {
+    //     dispatch(fetchJournalPending());
+    //     setTimeout(() => {
+    //         dispatch(fetchJournalSuccess(journal))
+    //     }, 1000)
+    // }
+
+    return dispatch => {
         dispatch(fetchJournalPending());
-        setTimeout(() => {
-            dispatch(fetchJournalSuccess(journal))
-        }, 1000)
-        /*
-        fetch('someurl.com/api')
-        .then(res => res.json())
+        const token = localStorage.getItem('token');
+        axios.get('http://localhost:8000/api/journal/journals/?student_class=7%D0%90&subject=1', {headers: { 'Authorization': `Token ${token}` }})
         .then(res => {
-            if(res.error) {
-                throw(res.error)
-            }
-            dispatch(fetchTimeJournalSuccess(res.events))
+            const journal = res.data
+            console.log('JOURNAL', journal)
+            dispatch(fetchJournalSuccess(journal))
         })
-        .catch(error => {
-            dispatch(fetchJournalError(error))
+        .catch(err => {
+            dispatch(fetchJournalError('Возникла ощибка'))
         })
-        */
     }
 
     // events actions
@@ -201,27 +162,19 @@ function fetchJournal() {
 }
 
 function fetchSubHeader() {
-    return async dispatch => {
+    return dispatch => {
         dispatch(fetchSubHeaderPending());
-        setTimeout(() => {
-            dispatch(fetchSubHeaderSuccess(subheader))
-        }, 1000)
-        /*
-        fetch('someurl.com/api')
-        .then(res => res.json())
+        const token = localStorage.getItem('token');
+        axios.get('http://localhost:8000/api/user/me/', {headers: { 'Authorization': `Token ${token}` }})
         .then(res => {
-            if(res.error) {
-                throw(res.error)
-            }
-            dispatch(fetchTimeJournalSuccess(res.events))
+            const subheader = res.data.student_classes
+            dispatch(fetchSubHeaderSuccess(subheader))
         })
-        .catch(error => {
-            dispatch(fetchJournalError(error))
+        .catch(err => {
+            dispatch(fetchSubHeaderError('Возникла ощибка'))
         })
-        */
     }
 
-    // events actions
     function fetchSubHeaderPending() {
         return {
             type: userConstants.FETCH_SUBHEADER_PENDING
@@ -244,24 +197,17 @@ function fetchSubHeader() {
 }
 
 function fetchHeader() {
-    return async dispatch => {
+    return dispatch => {
         dispatch(fetchHeaderPending());
-        setTimeout(() => {
-            dispatch(fetchHeaderSuccess(header))
-        }, 1000)
-        /*
-        fetch('someurl.com/api')
-        .then(res => res.json())
+        const token = localStorage.getItem('token');
+        axios.get('http://localhost:8000/api/user/me/', {headers: { 'Authorization': `Token ${token}` }})
         .then(res => {
-            if(res.error) {
-                throw(res.error)
-            }
-            dispatch(fetchTimeJournalSuccess(res.events))
+            const header = res.data.subjects
+            dispatch(fetchHeaderSuccess(header))
         })
-        .catch(error => {
-            dispatch(fetchJournalError(error))
+        .catch(err => {
+            dispatch(fetchHeaderError('Возникла ощибка'))
         })
-        */
     }
 
     // events actions
@@ -286,7 +232,32 @@ function fetchHeader() {
     }
 }
 
-// TODO: check token expiration
+function selectHeader(value) {
+    return dispatch => {
+        dispatch(fetchHeader(value));
+    }
+
+    function fetchHeader() {
+        return {
+            type: userConstants.SELECT_HEADER,
+            value
+        }
+    }
+}
+
+function selectSubHeader(value) {
+    return dispatch => {
+        dispatch(fetchSubHeader(value));
+    }
+
+    function fetchSubHeader() {
+        return {
+            type: userConstants.SELECT_SUBHEADER,
+            value
+        }
+    }
+}
+
 function fetchAccount() {
     return dispatch => {
         dispatch(fetchAccountPending());
