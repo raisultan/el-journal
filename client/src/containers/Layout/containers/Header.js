@@ -4,7 +4,7 @@ import { Layout } from 'antd'
 import { Link } from 'react-router-dom'
 
 import { StyledHeader, StyledAwayBlock } from '../styled'
-import Dropdown from '../components/LabeledDropdown'
+import Dropdown from './HeaderDropdown'
 import CustomButton from '../components/CustomButton'
 import { userActions } from '../../../redux/actions'
 
@@ -17,7 +17,7 @@ class MainHeader extends Component {
   }
 
   render() {
-    const {label, header, pending, error, changeHeader} = this.props
+    const {label, header, pending, error, changeHeader, displaySubHeader} = this.props
     const upperCaseLabel = label.toUpperCase();
 
     const userLogout = () => {
@@ -33,6 +33,7 @@ class MainHeader extends Component {
             tip="Выберите предмет"
             options={header}
             selectHeader={changeHeader}
+            enableSubHeader={displaySubHeader}
           />
           <StyledAwayBlock width='210px'>
             <Link to="/layout/account">
@@ -71,6 +72,7 @@ const mapDispatchToProps = dispatch => {
   return {
     changeHeader: value => dispatch(userActions.selectHeader(value)),
     fetchHeader: () => dispatch(userActions.fetchHeader()),
+    displaySubHeader: availableClasses => dispatch(userActions.displaySubHeader(availableClasses)),
   }
 }
 

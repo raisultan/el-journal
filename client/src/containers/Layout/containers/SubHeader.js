@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import { Layout } from 'antd'
 
 import {userActions} from '../../../redux/actions'
-import LabeledDropdown from '../components/LabeledDropdown'
+import LabeledDropdown from '../components/SubHeaderDropdown'
 import { StyledHeader, LeftAlignedBlock } from '../styled'
 import { routeTranslator } from '../../../utils'
 import { history } from '../../../redux/helpers'
@@ -16,37 +16,26 @@ class SubHeader extends Component {
     path: history.location.pathname
   }
 
- componentWillMount() {
-    const { fetchSubHeader } = this.props
-    fetchSubHeader()
-  }
   render() {
-    const {subheader, pending, error, changeSubHeader} = this.props
+    const {changeSubHeader, value, studentClasses} = this.props
+    const displaySubHeader = value
 
     const eventsPanel = (
-      <>
-        <LabeledDropdown
-            label="Класс"
-            tip="Выберите класс"
-            options={subheader}
-        />
         <EventAddModal
           butLabel="Добавить событие"
         />
-      </>
     )
 
     const journalPanel = (
-      <>
-        <LabeledDropdown
-            label="Класс"
-            tip="Выберите класс"
-            options={subheader}
-            selectHeader={changeSubHeader}
-        />
-        {/* {attenButtons} */}
-        {/* {markButtons} */}
-      </>
+      !displaySubHeader ?
+      <p>First pick subject</p>
+      :
+      <LabeledDropdown
+          label="Класс"
+          tip="Выберите класс"
+          options={studentClasses}
+          selectSubHeader={changeSubHeader}
+      />
     )
 
     const accountPanel = (
@@ -76,17 +65,15 @@ class SubHeader extends Component {
 }
 
 const mapStateToProps = state => {
-  const {subheader, pending, error} = state.fetchSubHeader
+  const {value, studentClasses} = state.displaySubHeader
   return {
-    subheader,
-    pending,
-    error
+    value,
+    studentClasses,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchSubHeader: () => dispatch(userActions.fetchSubHeader()),
     changeSubHeader: value => dispatch(userActions.selectSubHeader(value))
   }
 }

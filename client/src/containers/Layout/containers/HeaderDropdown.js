@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
 import { Menu, Dropdown, Icon } from 'antd'
-import { AbsoluteDiv, RightMarginedSpan, BlueSpan } from '../styled';
 
-export default ({label, tip, options, selectHeader}) => {
+import { AbsoluteDiv, RightMarginedSpan, BlueSpan } from '../styled'
+import { pullStudentClassesFromHeader } from '../../../utils/index'
+
+const LabeledDropdown = ({label, tip, options, selectHeader, enableSubHeader, header}) => {
   const [value, setValue] = useState(tip)
 
   const dropMenu = options.map( opt => (
@@ -26,6 +29,8 @@ export default ({label, tip, options, selectHeader}) => {
   const handleChange = val => {
     setValue(val)
     selectHeader(val)
+    const studentClasses = pullStudentClassesFromHeader(header, val)
+    enableSubHeader(studentClasses)
   }
 
   return (
@@ -39,3 +44,12 @@ export default ({label, tip, options, selectHeader}) => {
     </ AbsoluteDiv>
   )
 }
+
+const mapStateToProps = state => {
+  const {header} = state.fetchHeader
+  return {
+    header,
+  }
+}
+
+export default connect(mapStateToProps)(LabeledDropdown)

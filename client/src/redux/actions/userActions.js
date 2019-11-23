@@ -2,7 +2,6 @@ import axios from 'axios'
 import { userConstants } from '../constants'
 import { history } from '../helpers'
 
-import { journal } from '../helpers/initialData'
 
 export const userActions = {
     login,
@@ -10,11 +9,11 @@ export const userActions = {
     fetchEventList,
     fetchTimeTable,
     fetchJournal,
-    fetchSubHeader,
     fetchHeader,
     fetchAccount,
     selectHeader,
     selectSubHeader,
+    displaySubHeader,
 }
 
 function login(user) {
@@ -117,18 +116,11 @@ function fetchTimeTable() {
     }
 }
 
-function fetchJournal() {
-    // return async dispatch => {
-    //     dispatch(fetchJournalPending());
-    //     setTimeout(() => {
-    //         dispatch(fetchJournalSuccess(journal))
-    //     }, 1000)
-    // }
-
+function fetchJournal(className, subjectName) {
     return dispatch => {
         dispatch(fetchJournalPending());
         const token = localStorage.getItem('token');
-        axios.get('http://localhost:8000/api/journal/journals/?student_class=7%D0%90&subject=1', {headers: { 'Authorization': `Token ${token}` }})
+        axios.get(`http://localhost:8000/api/journal/journals/?student_class=${className}&subject=${subjectName}`, {headers: { 'Authorization': `Token ${token}` }})
         .then(res => {
             const journal = res.data
             console.log('JOURNAL', journal)
@@ -161,48 +153,14 @@ function fetchJournal() {
     }
 }
 
-function fetchSubHeader() {
-    return dispatch => {
-        dispatch(fetchSubHeaderPending());
-        const token = localStorage.getItem('token');
-        axios.get('http://localhost:8000/api/user/me/', {headers: { 'Authorization': `Token ${token}` }})
-        .then(res => {
-            const subheader = res.data.student_classes
-            dispatch(fetchSubHeaderSuccess(subheader))
-        })
-        .catch(err => {
-            dispatch(fetchSubHeaderError('Возникла ощибка'))
-        })
-    }
-
-    function fetchSubHeaderPending() {
-        return {
-            type: userConstants.FETCH_SUBHEADER_PENDING
-        }
-    }
-
-    function fetchSubHeaderSuccess(subheader) {
-        return {
-            type: userConstants.FETCH_SUBHEADER_SUCCESS,
-            subheader
-        }
-    }
-
-    function fetchSubHeaderError(error) {
-        return {
-            type: userConstants.FETCH_SUBHEADER_ERROR,
-            error: error
-        }
-    }
-}
-
 function fetchHeader() {
     return dispatch => {
         dispatch(fetchHeaderPending());
         const token = localStorage.getItem('token');
         axios.get('http://localhost:8000/api/user/me/', {headers: { 'Authorization': `Token ${token}` }})
         .then(res => {
-            const header = res.data.subjects
+            const header = res.data.teaching_subjects
+            console.log('HEEEY', header)
             dispatch(fetchHeaderSuccess(header))
         })
         .catch(err => {
@@ -241,6 +199,19 @@ function selectHeader(value) {
         return {
             type: userConstants.SELECT_HEADER,
             value
+        }
+    }
+}
+
+function displaySubHeader(studentClasses) {
+    return dispatch => {
+        dispatch(displaySubHeader(studentClasses));
+    }
+
+    function displaySubHeader() {
+        return {
+            type: userConstants.DISPLAY_SUBHEADER,
+            studentClasses: studentClasses,
         }
     }
 }

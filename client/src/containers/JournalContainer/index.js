@@ -15,10 +15,6 @@ import { journalDataRearranger,
 const weekList = getWeekAsDateStringsList()
 
 class JournalContainer extends Component {
-  componentWillMount() {
-    const {dispatch} = this.props
-    dispatch(userActions.fetchJournal())
-  }
 
   addCellContentToStudentsData = (journal) => {
     let studentsData = journalDataRearranger(journal)
@@ -69,11 +65,10 @@ class JournalContainer extends Component {
 
 const mapStateToProps = state => {
   const {journal, pending, error} = state.fetchJournal
-  console.log('FETCH JOURNAL', journal)
   return {
     journal,
     pending,
-    error
+    error,
   }
 }
 

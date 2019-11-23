@@ -198,3 +198,11 @@ export const addAbsentDatesToMarksOfStudentObjects = (studentList, weekList) => 
   })
   return studentList
 }
+
+export const pullStudentClassesFromHeader = (header, subjectName) => {
+  let studentClasses = []
+  header.forEach(subject => {
+    if(subject.name === subjectName) studentClasses = subject.student_classes
+  })
+  return studentClasses
+}
