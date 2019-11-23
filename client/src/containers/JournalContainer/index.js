@@ -32,7 +32,7 @@ class JournalContainer extends Component {
   }
 
   render() {
-    const {journal, pending, error} = this.props
+    const {journal, pending, error, displayJournal} = this.props
 
     let columns = []
     let data = []
@@ -42,21 +42,28 @@ class JournalContainer extends Component {
       columns = makeWeekJournalColumnsFromDateStringList(weekList)
     }
 
+    const renderingComponent = () => {
+      let comp = <EditableTable
+            data={data}
+            columns={columns}
+        />
+
+      if (!displayJournal) {
+        console.log('DISPLAY JOURNAL', displayJournal)
+        comp = <p>Пожалуйста выберите предмет и класс!</p>
+      } else if(pending) {
+        comp = <StyledCentererWrapper>
+          <Spin tip="Подгружаем журнал..." />
+        </StyledCentererWrapper>
+      }
+
+      return comp
+    }
+
     return (
       <>
       {
-        pending
-        ?
-        <StyledCentererWrapper>
-          <Spin tip="Подгружаем журнал..." />
-        </StyledCentererWrapper>
-        :
-        <EditableTable
-          data={data}
-          columns={columns}
-          // columns = {journal.columns}
-          // data = {journal.data}
-        />
+        renderingComponent()
       }
       </>
     )
@@ -65,10 +72,12 @@ class JournalContainer extends Component {
 
 const mapStateToProps = state => {
   const {journal, pending, error} = state.fetchJournal
+  const {displayJournal} = state.displayJournal
   return {
     journal,
     pending,
     error,
+    displayJournal,
   }
 }
 

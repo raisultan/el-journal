@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
 import { Menu, Dropdown, Icon } from 'antd'
 
 import { AbsoluteDiv, RightMarginedSpan, BlueSpan } from '../styled'
-import { userActions } from '../../../redux/actions'
 
-const SubHeaderDropdown = ({label, tip, options, selectSubHeader, fetchJournal, subjectName}) => {
+const SubHeaderDropdown = (
+  {
+    label, tip, options, selectSubHeader,
+    fetchJournal, subjectName, displayJournalToggle
+  }
+) => {
+
   const [value, setValue] = useState(tip)
 
   if(value !== tip) {
@@ -37,6 +41,7 @@ const SubHeaderDropdown = ({label, tip, options, selectSubHeader, fetchJournal, 
   const handleChange = val => {
     setValue(val)
     selectSubHeader(val)
+    displayJournalToggle(true)
     fetchJournal(val, subjectName)
   }
 
@@ -52,18 +57,4 @@ const SubHeaderDropdown = ({label, tip, options, selectSubHeader, fetchJournal, 
   )
 }
 
-const mapStateToProps = state => {
-  const {value} = state.selectHeader
-  const subjectName = value
-  return {
-    subjectName
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchJournal: (className, subjectName) => dispatch(userActions.fetchJournal(className, subjectName)),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SubHeaderDropdown)
+export default SubHeaderDropdown

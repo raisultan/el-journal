@@ -17,7 +17,8 @@ class SubHeader extends Component {
   }
 
   render() {
-    const {changeSubHeader, value, studentClasses} = this.props
+    const {changeSubHeader, value, studentClasses,
+           subjectName, displayJournalToggle, fetchJournal} = this.props
     const displaySubHeader = value
 
     const eventsPanel = (
@@ -35,6 +36,9 @@ class SubHeader extends Component {
           tip="Выберите класс"
           options={studentClasses}
           selectSubHeader={changeSubHeader}
+          fetchJournal={fetchJournal}
+          subjectName={subjectName}
+          displayJournalToggle={displayJournalToggle}
       />
     )
 
@@ -66,15 +70,19 @@ class SubHeader extends Component {
 
 const mapStateToProps = state => {
   const {value, studentClasses} = state.displaySubHeader
+  const {subjectName} = state.selectHeader
   return {
     value,
     studentClasses,
+    subjectName
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    changeSubHeader: value => dispatch(userActions.selectSubHeader(value))
+    changeSubHeader: value => dispatch(userActions.selectSubHeader(value)),
+    fetchJournal: (className, subjectName) => dispatch(userActions.fetchJournal(className, subjectName)),
+    displayJournalToggle: value => dispatch(userActions.displayJournalToggle(value)),
   }
 }
 

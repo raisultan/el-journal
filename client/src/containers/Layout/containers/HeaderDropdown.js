@@ -5,7 +5,7 @@ import { Menu, Dropdown, Icon } from 'antd'
 import { AbsoluteDiv, RightMarginedSpan, BlueSpan } from '../styled'
 import { pullStudentClassesFromHeader } from '../../../utils/index'
 
-const LabeledDropdown = ({label, tip, options, selectHeader, enableSubHeader, header}) => {
+const LabeledDropdown = ({label, tip, options, selectHeader, enableSubHeader, header, displayJournal}) => {
   const [value, setValue] = useState(tip)
 
   const dropMenu = options.map( opt => (
@@ -31,6 +31,7 @@ const LabeledDropdown = ({label, tip, options, selectHeader, enableSubHeader, he
     selectHeader(val)
     const studentClasses = pullStudentClassesFromHeader(header, val)
     enableSubHeader(studentClasses)
+    displayJournal(false)
   }
 
   return (

@@ -14,6 +14,7 @@ export const userActions = {
     selectHeader,
     selectSubHeader,
     displaySubHeader,
+    displayJournalToggle,
 }
 
 function login(user) {
@@ -131,7 +132,6 @@ function fetchJournal(className, subjectName) {
         })
     }
 
-    // events actions
     function fetchJournalPending() {
         return {
             type: userConstants.FETCH_JOURNAL_PENDING
@@ -199,6 +199,19 @@ function selectHeader(value) {
         return {
             type: userConstants.SELECT_HEADER,
             value
+        }
+    }
+}
+
+function displayJournalToggle(value) {
+    return dispatch => {
+        dispatch(displayJournal(value))
+    }
+
+    function displayJournal(value) {
+        return {
+            type: userConstants.DISPLAY_JOURNAL,
+            value: value
         }
     }
 }

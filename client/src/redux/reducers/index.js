@@ -9,6 +9,7 @@ import {fetchAccount} from './accountReducer'
 import {selectHeader} from './selectHeaderReducer'
 import {selectSubHeader} from './selectSubHeaderReducer'
 import {displaySubHeader} from './displaySubHeaderReducer'
+import {displayJournal} from './displayJournalReducer'
 
 const rootReducer = combineReducers({
   authentication,
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   selectHeader,
   selectSubHeader,
   displaySubHeader,
+  displayJournal,
 })
 
 export default rootReducer

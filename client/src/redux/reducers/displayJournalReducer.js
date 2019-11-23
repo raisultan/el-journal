@@ -1,15 +1,15 @@
 import {userConstants} from '../constants'
 
 const initialState = {
-    value: null,
+    displayJournal: false,
 }
 
-export function selectHeader(state=initialState, action) {
+export function displayJournal(state=initialState, action) {
     switch(action.type) {
-        case userConstants.SELECT_HEADER:
+        case userConstants.DISPLAY_JOURNAL:
             return {
                 ...state,
-                subjectName: action.value
+                displayJournal: action.value,
             }
         default:
             return state

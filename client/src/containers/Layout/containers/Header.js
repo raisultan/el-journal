@@ -17,7 +17,7 @@ class MainHeader extends Component {
   }
 
   render() {
-    const {label, header, pending, error, changeHeader, displaySubHeader} = this.props
+    const {label, header, pending, error, changeHeader, displaySubHeader, displayJournalToggle} = this.props
     const upperCaseLabel = label.toUpperCase();
 
     const userLogout = () => {
@@ -34,6 +34,7 @@ class MainHeader extends Component {
             options={header}
             selectHeader={changeHeader}
             enableSubHeader={displaySubHeader}
+            displayJournal={displayJournalToggle}
           />
           <StyledAwayBlock width='210px'>
             <Link to="/layout/account">
@@ -73,6 +74,7 @@ const mapDispatchToProps = dispatch => {
     changeHeader: value => dispatch(userActions.selectHeader(value)),
     fetchHeader: () => dispatch(userActions.fetchHeader()),
     displaySubHeader: availableClasses => dispatch(userActions.displaySubHeader(availableClasses)),
+    displayJournalToggle: value => dispatch(userActions.displayJournalToggle(value)),
   }
 }
 
