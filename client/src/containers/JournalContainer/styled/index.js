@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const StyledCentererWrapper = styled.div`
   height: 100%;
@@ -6,4 +6,4 @@ export const StyledCentererWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;

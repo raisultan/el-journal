@@ -1,12 +1,12 @@
-import React from 'react'
-import { Card } from 'antd'
+import React from "react";
+import { Card } from "antd";
 
-import EventPreviewModal from './EventPreviewModal'
-import EventEditModal from '../containers/EventEditModal'
-import { prettifyDjangoDateTime } from '../../../utils/index'
+import EventPreviewModal from "./EventPreviewModal";
+import EventEditModal from "../containers/EventEditModal";
+import { prettifyDjangoDateTime } from "../../../utils/index";
 
-export default ({title, desc, date, event_id}) => {
-  const { Meta } = Card
+export default ({ title, desc, date, event_id }) => {
+  const { Meta } = Card;
   const actions = [
     <EventEditModal
       title={title}
@@ -23,18 +23,13 @@ export default ({title, desc, date, event_id}) => {
       butLabel="Подробнее"
       icon="ellipsis"
     />
-  ]
+  ];
 
   return (
-    <Card
-      actions={actions}
-    >
-      <Meta
-        title={title}
-        description={desc}
-      />
+    <Card actions={actions}>
+      <Meta title={title} description={desc} />
       <br />
       {prettifyDjangoDateTime(date)}
     </Card>
-  )
-}
+  );
+};

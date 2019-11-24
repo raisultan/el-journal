@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const CenterBlock = styled.div`
   width: 100%;
@@ -6,7 +6,7 @@ export const CenterBlock = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 
 export const StyledAccountCard = styled.div`
   padding: 16px;
@@ -14,4 +14,4 @@ export const StyledAccountCard = styled.div`
   height: auto;
   display: flex;
   flex-direction: column;
-`
+`;

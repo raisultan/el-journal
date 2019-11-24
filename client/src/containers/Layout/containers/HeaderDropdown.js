@@ -1,56 +1,56 @@
-import React, { useState } from 'react'
-import { connect } from 'react-redux'
-import { Menu, Dropdown, Icon } from 'antd'
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import { Menu, Dropdown, Icon } from "antd";
 
-import { AbsoluteDiv, RightMarginedSpan, BlueSpan } from '../styled'
-import { pullStudentClassesFromHeader } from '../../../utils/index'
+import { AbsoluteDiv, RightMarginedSpan, BlueSpan } from "../styled";
+import { pullStudentClassesFromHeader } from "../../../utils/index";
 
-const LabeledDropdown = ({label, tip, options, selectHeader, enableSubHeader, header, displayJournal}) => {
-  const [value, setValue] = useState(tip)
+const LabeledDropdown = ({
+  label,
+  tip,
+  options,
+  selectHeader,
+  enableSubHeader,
+  header,
+  displayJournal
+}) => {
+  const [value, setValue] = useState(tip);
 
-  const dropMenu = options.map( opt => (
-      <Menu.Item key={opt.name} onClick={e => handleChange(opt.name)}>
-        <span>{opt.name}</span>
-      </Menu.Item>
-  ))
+  const dropMenu = options.map(opt => (
+    <Menu.Item key={opt.name} onClick={e => handleChange(opt.name)}>
+      <span>{opt.name}</span>
+    </Menu.Item>
+  ));
 
-  const menu = (
-    <Menu selectable>
-      {dropMenu}
-    </Menu>
-  )
+  const menu = <Menu selectable>{dropMenu}</Menu>;
 
-  const tipLabel = (
-    <RightMarginedSpan size="6px">
-        {label}:
-      </RightMarginedSpan>
-  )
+  const tipLabel = <RightMarginedSpan size="6px">{label}:</RightMarginedSpan>;
 
   const handleChange = val => {
-    setValue(val)
-    selectHeader(val)
-    const studentClasses = pullStudentClassesFromHeader(header, val)
-    enableSubHeader(studentClasses)
-    displayJournal(false)
-  }
+    setValue(val);
+    selectHeader(val);
+    const studentClasses = pullStudentClassesFromHeader(header, val);
+    enableSubHeader(studentClasses);
+    displayJournal(false);
+  };
 
   return (
     <AbsoluteDiv>
       {tipLabel}
-      <Dropdown overlay={menu} trigger={['click']}>
+      <Dropdown overlay={menu} trigger={["click"]}>
         <BlueSpan className="ant-dropdown-link">
           {value} <Icon type="down" />
         </BlueSpan>
       </Dropdown>
-    </ AbsoluteDiv>
-  )
-}
+    </AbsoluteDiv>
+  );
+};
 
 const mapStateToProps = state => {
-  const {header} = state.fetchHeader
+  const { header } = state.fetchHeader;
   return {
-    header,
-  }
-}
+    header
+  };
+};
 
-export default connect(mapStateToProps)(LabeledDropdown)
+export default connect(mapStateToProps)(LabeledDropdown);

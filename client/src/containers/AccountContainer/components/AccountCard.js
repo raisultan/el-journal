@@ -1,17 +1,12 @@
-import React from 'react'
-import { Typography } from 'antd'
+import React from "react";
+import { Typography } from "antd";
 
-import { CenterBlock, StyledAccountCard } from '../styled';
+import { CenterBlock, StyledAccountCard } from "../styled";
 
-const { Text } = Typography
+const { Text } = Typography;
 
 export default ({ user }) => {
-  const { name,
-    surname,
-    lastname,
-    birth,
-    address,
-    phone} = user
+  const { name, surname, lastname, birth, address, phone } = user;
   return (
     <CenterBlock>
       <StyledAccountCard>
@@ -23,5 +18,5 @@ export default ({ user }) => {
         <Text>Телефон: {phone}</Text> <br />
       </StyledAccountCard>
     </CenterBlock>
-  )
-}
+  );
+};

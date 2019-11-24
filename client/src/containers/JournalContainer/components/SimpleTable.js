@@ -1,18 +1,18 @@
-import React from 'react'
-import {Table} from 'antd'
+import React from "react";
+import { Table } from "antd";
 
-const EditableTable = ({columns, data}) => {
-    return (
-        <>
-            <Table
-                columns={columns}
-                dataSource={data}
-                size="small"
-                scroll={{x: true}}
-                bordered
-            />
-        </>
-    )
-}
+const EditableTable = ({ columns, data }) => {
+  return (
+    <>
+      <Table
+        columns={columns}
+        dataSource={data}
+        size="small"
+        scroll={{ x: true }}
+        bordered
+      />
+    </>
+  );
+};
 
-export default EditableTable
+export default EditableTable;

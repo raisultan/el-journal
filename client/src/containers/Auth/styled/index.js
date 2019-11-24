@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const StyledCentererWrapper = styled.div`
   height: 100vh;
@@ -6,7 +6,7 @@ export const StyledCentererWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 
 export const StyledAuthWrapper = styled.div`
   height: 46vh;
@@ -15,11 +15,11 @@ export const StyledAuthWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-`
+`;
 export const StyledCentererLabel = styled.h2`
   text-align: center;
-`
+`;
 
 export const StyledRightAnchor = styled.a`
   float: right;
-`
+`;
