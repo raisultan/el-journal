@@ -1,15 +1,15 @@
 import {userConstants} from '../constants'
 
 const initialState = {
-    subjectName: null,
+    subHeaderTitle: null,
 }
 
-export function selectHeader(state=initialState, action) {
+export function changeSubHeaderTitle(state=initialState, action) {
     switch(action.type) {
-        case userConstants.SELECT_HEADER:
+        case userConstants.CHANGE_SUBHEADER_TITLE:
             return {
                 ...state,
-                subjectName: action.value
+                subHeaderTitle: action.value,
             }
         default:
             return state

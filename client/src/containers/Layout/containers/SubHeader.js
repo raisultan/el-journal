@@ -4,7 +4,7 @@ import { Layout } from 'antd'
 
 import {userActions} from '../../../redux/actions'
 import LabeledDropdown from '../components/SubHeaderDropdown'
-import { StyledHeader, LeftAlignedBlock } from '../styled'
+import { StyledHeader } from '../styled'
 import { routeTranslator } from '../../../utils'
 import { history } from '../../../redux/helpers'
 import EventAddModal from '../../EventsContainer/containers/EventAddModal'
@@ -12,13 +12,9 @@ import EventAddModal from '../../EventsContainer/containers/EventAddModal'
 const { Header } = Layout
 
 class SubHeader extends Component {
-  state = {
-    path: history.location.pathname
-  }
-
   render() {
-    const {changeSubHeader, value, studentClasses,
-           subjectName, displayJournalToggle, fetchJournal} = this.props
+    const {changeSubHeader, value, studentClasses, subHeaderTitle,
+           subjectName, displayJournalToggle, fetchJournal, className} = this.props
     const displaySubHeader = value
 
     const eventsPanel = (
@@ -39,29 +35,21 @@ class SubHeader extends Component {
           fetchJournal={fetchJournal}
           subjectName={subjectName}
           displayJournalToggle={displayJournalToggle}
+          initialClassName={className}
       />
     )
 
-    const accountPanel = (
-      <LeftAlignedBlock>
-        <h2>Аккаунт</h2>
-      </LeftAlignedBlock>
-    )
-
-    // todo: not changin while route is changing
-    // consider creating an action, that will be called when route is changed
-    const functionPanel = (routeName) => {
-      if (routeName.includes('journal')) return journalPanel
-      if (routeName.includes('events')) return eventsPanel
-      if (routeName.includes('account')) return accountPanel
+    const functionPanel = (title) => {
+      if (title === 'journal') return journalPanel
+      if (title === 'events') return eventsPanel
       else return null
     }
 
     return (
       <Header style={{ background: 'whitesmoke', padding: 0, height: '80px'}}>
         <StyledHeader>
-          <h2>{routeTranslator(this.state.path)}</h2>
-          {functionPanel(this.state.path)}
+          <h2>{routeTranslator(subHeaderTitle)}</h2>
+          {functionPanel(subHeaderTitle)}
         </StyledHeader>
       </Header>
     )
@@ -71,10 +59,14 @@ class SubHeader extends Component {
 const mapStateToProps = state => {
   const {value, studentClasses} = state.displaySubHeader
   const {subjectName} = state.selectHeader
+  const {subHeaderTitle} = state.changeSubHeaderTitle
+  const { className } = state.selectSubHeader
   return {
     value,
     studentClasses,
-    subjectName
+    subjectName,
+    subHeaderTitle,
+    className,
   }
 }
 

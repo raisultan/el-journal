@@ -1,7 +1,7 @@
 import {userConstants} from '../constants'
 
 const initialState = {
-    value: null,
+    className: null,
 }
 
 export function selectSubHeader(state=initialState, action) {
@@ -9,7 +9,7 @@ export function selectSubHeader(state=initialState, action) {
         case userConstants.SELECT_SUBHEADER:
             return {
                 ...state,
-                value: action.value
+                className: action.value
             }
         default:
             return state

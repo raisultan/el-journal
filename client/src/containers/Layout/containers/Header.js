@@ -17,11 +17,15 @@ class MainHeader extends Component {
   }
 
   render() {
-    const {label, header, pending, error, changeHeader, displaySubHeader, displayJournalToggle} = this.props
+    const {label, header, pending, error, changeHeader, displaySubHeader, displayJournalToggle, changeSubHeaderTitle} = this.props
     const upperCaseLabel = label.toUpperCase();
 
     const userLogout = () => {
       userActions.logout()
+    }
+
+    const accountSubHeaderTitle = () => {
+      changeSubHeaderTitle('account')
     }
 
     return (
@@ -37,11 +41,10 @@ class MainHeader extends Component {
             displayJournal={displayJournalToggle}
           />
           <StyledAwayBlock width='210px'>
-            <Link to="/layout/account">
+            <Link to="/layout/account" onClick={accountSubHeaderTitle}>
               <CustomButton
                 label="Аккаунт"
                 icon="user"
-                action={null}
               />
             </Link>
             <Link to="/auth">
@@ -75,6 +78,7 @@ const mapDispatchToProps = dispatch => {
     fetchHeader: () => dispatch(userActions.fetchHeader()),
     displaySubHeader: availableClasses => dispatch(userActions.displaySubHeader(availableClasses)),
     displayJournalToggle: value => dispatch(userActions.displayJournalToggle(value)),
+    changeSubHeaderTitle: value => dispatch(userActions.changeSubHeaderTitle(value)),
   }
 }
 

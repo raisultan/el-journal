@@ -2,17 +2,19 @@ import { notification } from 'antd'
 
 
 export const routeTranslator = (routeName) => {
-  if (routeName.includes('journal')) return 'Журнал'
-  if (routeName.includes('timetable')) return 'Расписание'
-  if (routeName.includes('events')) return 'События'
+  if (routeName === 'journal') return 'Журнал'
+  if (routeName === 'timetable') return 'Расписание'
+  if (routeName === 'events') return 'События'
+  if (routeName === 'account') return 'Аккаунт'
   else return null
 }
 
 export const pathDecoder = (pathName) => {
-  if (pathName.includes('journal')) return 1
-  if (pathName.includes('timetable')) return 2
-  if (pathName.includes('events')) return 3
-  else return null
+  let componentKey = null
+  if (pathName.includes('journal')) componentKey = '1'
+  else if (pathName.includes('timetable')) componentKey = '2'
+  else if (pathName.includes('events')) componentKey = '3'
+  return componentKey
 }
 
 export const dateTimeConverter = str => {

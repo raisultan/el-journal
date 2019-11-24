@@ -1,16 +1,17 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
 import { Menu, Dropdown, Icon } from 'antd'
 
 import { AbsoluteDiv, RightMarginedSpan, BlueSpan } from '../styled'
 
 const SubHeaderDropdown = (
   {
-    label, tip, options, selectSubHeader,
-    fetchJournal, subjectName, displayJournalToggle
+    label, tip, options, selectSubHeader, className,
+    fetchJournal, subjectName, displayJournalToggle, chosenSubject,
   }
 ) => {
 
-  const [value, setValue] = useState(tip)
+  const [value, setValue] = useState(className ? className : tip)
 
   if(value !== tip) {
     let changeValue = true
@@ -57,4 +58,15 @@ const SubHeaderDropdown = (
   )
 }
 
-export default SubHeaderDropdown
+const mapStateToProps = state => {
+  const {journal} = state.fetchJournal
+  const className = journal.className
+  const {subjectName} = state.selectHeader
+  const chosenSubject = subjectName
+  return {
+    className,
+    chosenSubject,
+  }
+}
+
+export default connect(mapStateToProps)(SubHeaderDropdown)

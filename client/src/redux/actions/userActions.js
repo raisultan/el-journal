@@ -15,6 +15,7 @@ export const userActions = {
     selectSubHeader,
     displaySubHeader,
     displayJournalToggle,
+    changeSubHeaderTitle,
 }
 
 function login(user) {
@@ -123,7 +124,11 @@ function fetchJournal(className, subjectName) {
         const token = localStorage.getItem('token');
         axios.get(`http://localhost:8000/api/journal/journals/?student_class=${className}&subject=${subjectName}`, {headers: { 'Authorization': `Token ${token}` }})
         .then(res => {
-            const journal = res.data
+            const journal = {
+                subjectName: subjectName,
+                className: className,
+                data: res.data,
+            }
             console.log('JOURNAL', journal)
             dispatch(fetchJournalSuccess(journal))
         })
@@ -274,6 +279,19 @@ function fetchAccount() {
         return {
             type: userConstants.FETCH_ACCOUNT_ERROR,
             error: error
+        }
+    }
+}
+
+function changeSubHeaderTitle(value) {
+    return dispatch => {
+        dispatch(changeSubHeaderTitle(value))
+    }
+
+    function changeSubHeaderTitle(value) {
+        return {
+            type: userConstants.CHANGE_SUBHEADER_TITLE,
+            value: value
         }
     }
 }

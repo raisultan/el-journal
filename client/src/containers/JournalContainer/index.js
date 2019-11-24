@@ -37,8 +37,8 @@ class JournalContainer extends Component {
     let columns = []
     let data = []
 
-    if(Object.keys(journal).length !== 0 && journal.constructor !== Object) {
-      data = this.addCellContentToStudentsData(journal)
+    if(journal && journal.data && Object.keys(journal.data).length !== 0 && journal.data.constructor !== Object) {
+      data = this.addCellContentToStudentsData(journal.data)
       columns = makeWeekJournalColumnsFromDateStringList(weekList)
     }
 

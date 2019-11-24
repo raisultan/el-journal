@@ -2,7 +2,7 @@ import { userConstants } from '../constants'
 
 export const initialState = {
     pending: false,
-    journal: [],
+    journal: {},
     error: null
 }
 
