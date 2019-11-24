@@ -5,7 +5,6 @@ import { Layout } from 'antd'
 import {userActions} from '../../../redux/actions'
 import LabeledDropdown from '../components/SubHeaderDropdown'
 import { StyledHeader } from '../styled'
-import { routeTranslator } from '../../../utils'
 import { history } from '../../../redux/helpers'
 import EventAddModal from '../../EventsContainer/containers/EventAddModal'
 
@@ -40,16 +39,30 @@ class SubHeader extends Component {
     )
 
     const functionPanel = (title) => {
-      if (title === 'journal') return journalPanel
-      if (title === 'events') return eventsPanel
-      else return null
+      const path = history.location.pathname
+      let comp = null
+      if(path.includes('journal') || title === 'journal') comp = journalPanel
+      else if(path.includes('events') || title === 'events') comp = eventsPanel
+      return comp
+    }
+
+    const routeTranslator = (routeName) => {
+      const path = history.location.pathname
+      let title = null
+      if (path.includes('journal') || routeName === 'journal') title = 'Журнал'
+      else if (path.includes('timetable') || routeName === 'timetable') title = 'Расписание'
+      else if (path.includes('events') || routeName === 'events') title = 'События'
+      else if (path.includes('account') || routeName === 'account') title = 'Аккаунт'
+      return title
     }
 
     return (
       <Header style={{ background: 'whitesmoke', padding: 0, height: '80px'}}>
         <StyledHeader>
           <h2>{routeTranslator(subHeaderTitle)}</h2>
-          {functionPanel(subHeaderTitle)}
+          {
+            functionPanel(subHeaderTitle)
+          }
         </StyledHeader>
       </Header>
     )
@@ -60,7 +73,7 @@ const mapStateToProps = state => {
   const {value, studentClasses} = state.displaySubHeader
   const {subjectName} = state.selectHeader
   const {subHeaderTitle} = state.changeSubHeaderTitle
-  const { className } = state.selectSubHeader
+  const {className} = state.selectSubHeader
   return {
     value,
     studentClasses,
