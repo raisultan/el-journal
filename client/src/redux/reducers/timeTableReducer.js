@@ -19,7 +19,7 @@ export function fetchTimeTable(state = initialState, action) {
                 pending: false,
                 timetable: action.timetable
             }
-        case userConstants.FETCH_TIMETABLE_FAILURE:
+        case userConstants.FETCH_TIMETABLE_ERROR:
             return {
                 ...state,
                 pending: false,

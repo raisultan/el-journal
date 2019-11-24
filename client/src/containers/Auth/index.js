@@ -5,6 +5,7 @@ import {
 import { connect } from 'react-redux'
 
 import { userActions } from '../../redux/actions'
+import {openNotification, notificationConstants} from '../../utils'
 import {
   StyledCentererWrapper,
   StyledAuthWrapper,
@@ -31,7 +32,11 @@ const NormalLoginForm = ({ form, dispatch, loggingIn, loginFail, errorMessage, l
       if (!err) {
         dispatch(userActions.login(values))
       }
-    });
+    })
+  }
+
+  const forgotPasswordNotification = () => {
+    openNotification(...notificationConstants.FORGOT_PASSWORD)
   }
 
   const isSubmittable = (func) => func('email') && func('password')
@@ -53,7 +58,7 @@ const NormalLoginForm = ({ form, dispatch, loggingIn, loginFail, errorMessage, l
                   rules: [
                     {
                       type: 'email',
-                      message: 'Не валидный почтовый адрес!'
+                      message: 'Не корректный почтовый адрес!'
                     },
                     { required: true,
                       message: 'Пожалуйста, введите ваш почтовый адрес!'
@@ -72,13 +77,9 @@ const NormalLoginForm = ({ form, dispatch, loggingIn, loginFail, errorMessage, l
               </Form.Item>
               <Form.Item
               >
-                {getFieldDecorator('remember', {
-                  valuePropName: 'checked',
-                  initialValue: false,
-                })(
-                  <Checkbox>Запомнить меня</Checkbox>
-                )}
-                <StyledRightAnchor>Забыли пароль?</StyledRightAnchor>
+                <StyledRightAnchor onClick={forgotPasswordNotification}>
+                  Забыли пароль?
+                </StyledRightAnchor>
                 <Button
                   block
                   type="primary"

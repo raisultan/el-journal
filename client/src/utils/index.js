@@ -72,7 +72,7 @@ const markFilterer = (students, marks) => {
 	students.map(student => {
   	if (!student['marks']) student['marks'] = []
   	marks.forEach(mark =>{
-    	if (mark.student.id == student.id) {
+    	if (mark.student.id === student.id) {
       	student['marks'].push(mark)
       }
     })
@@ -207,4 +207,29 @@ export const pullStudentClassesFromHeader = (header, subjectName) => {
     if(subject.name === subjectName) studentClasses = subject.student_classes
   })
   return studentClasses
+}
+
+export const compareSurnames = (a, b) => {
+  if (a.surname > b.name) return 1
+  else if (a.surname < b.name) return -1
+  else return 0
+}
+
+export const compareLessonNumbers = (a, b) => {
+  if (a.number > b.number) return 1
+  else if (a.number < b.number) return -1
+  else return 0
+}
+
+export const sortTimeTable = (timetable, sorterFunc) => {
+  timetable.forEach(day => {
+    day.lessons.sort(sorterFunc)
+  })
+  return timetable
+}
+
+export const notificationConstants = {
+  UNKNOWN_ERROR: ['Возникла ошибка!', 'Обновите страницу и попробуйте заново. Если это не поможет, обратитесь к администратору.'],
+  EVENT_FIELDS_REQUIRED: ['Не все поля заполнены!', 'Пожалуйста заполните все поля и выберите дату со временем события.'],
+  FORGOT_PASSWORD: ['Забыли пароль.', 'Для восстановления пароля обратитесь к администратору.'],
 }

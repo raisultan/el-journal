@@ -24,7 +24,7 @@ class SubHeader extends Component {
 
     const journalPanel = (
       !displaySubHeader ?
-      <p>First pick subject</p>
+      <p>Пожалуйста, выберите предмет.</p>
       :
       <LabeledDropdown
           label="Класс"

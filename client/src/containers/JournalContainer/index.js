@@ -4,30 +4,32 @@ import {Spin} from 'antd'
 
 import EditableTable from './components/SimpleTable'
 import MarkDropDown from './components/MarkDropDown'
-import { userActions } from '../../redux/actions/userActions'
 import { StyledCentererWrapper } from './styled'
 import { journalDataRearranger,
          getWeekAsDateStringsList,
          pullMarksToProperty,
          addAbsentDatesToMarksOfStudentObjects,
-         makeWeekJournalColumnsFromDateStringList } from '../../utils/index'
+         makeWeekJournalColumnsFromDateStringList,
+         compareSurnames, 
+         openNotification} from '../../utils/index'
 
 const weekList = getWeekAsDateStringsList()
 
 class JournalContainer extends Component {
 
-  addCellContentToStudentsData = (journal) => {
+  addCellContentToStudentsData = (journal, sorterFunc) => {
     let studentsData = journalDataRearranger(journal)
     studentsData = pullMarksToProperty(studentsData)
     studentsData = addAbsentDatesToMarksOfStudentObjects(studentsData, weekList)
     weekList.forEach(date => {
       studentsData.forEach(student => {
         if (typeof(student[date]) !== 'undefined') {
-          student[date].cellContent = <MarkDropDown mark={student[date]} />
+          student[date].cellContent = <MarkDropDown mark={student[date]}/>
         }
       })
     })
     console.log('ARRANGED', studentsData)
+    studentsData.sort(sorterFunc)
     return studentsData
   }
 
@@ -38,7 +40,7 @@ class JournalContainer extends Component {
     let data = []
 
     if(journal && journal.data && Object.keys(journal.data).length !== 0 && journal.data.constructor !== Object) {
-      data = this.addCellContentToStudentsData(journal.data)
+      data = this.addCellContentToStudentsData(journal.data, compareSurnames)
       columns = makeWeekJournalColumnsFromDateStringList(weekList)
     }
 
@@ -50,7 +52,9 @@ class JournalContainer extends Component {
 
       if (!displayJournal) {
         console.log('DISPLAY JOURNAL', displayJournal)
-        comp = <p>Пожалуйста выберите предмет и класс!</p>
+        comp = <StyledCentererWrapper>
+            <h2>Для вывода журнала выберите соответствующие предмет и класс!</h2>
+          </StyledCentererWrapper>
       } else if(pending) {
         comp = <StyledCentererWrapper>
           <Spin tip="Подгружаем журнал..." />
@@ -63,6 +67,10 @@ class JournalContainer extends Component {
     return (
       <>
       {
+        error
+        ?
+        openNotification('Возникла ошибка!', error)
+        :
         renderingComponent()
       }
       </>

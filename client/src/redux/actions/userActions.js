@@ -16,6 +16,7 @@ export const userActions = {
     displaySubHeader,
     displayJournalToggle,
     changeSubHeaderTitle,
+    fetchSchoolInfo,
 }
 
 function login(user) {
@@ -55,11 +56,10 @@ function fetchEventList() {
             dispatch(fetchEventListSuccess(events))
         })
         .catch(err => {
-            dispatch(fetchEventListError('Возникла ощибка'))
+            dispatch(fetchEventListError('Возникла ошибка при подгрузке событий.'))
         })
     }
 
-    // events actions
     function fetchEventListPending() {
         return {
             type: userConstants.FETCH_EVENT_LIST_PENDING
@@ -92,11 +92,11 @@ function fetchTimeTable() {
             dispatch(fetchTimeTableSuccess(timetable))
         })
         .catch(err => {
-            dispatch(fetchTimeTableError('Возникла ощибка'))
+            console.log(err)
+            dispatch(fetchTimeTableError('Возникла ошибка при подгрузке расписания.'))
         })
     }
 
-    // events actions
     function fetchTimeTablePending() {
         return {
             type: userConstants.FETCH_TIMETABLE_PENDING
@@ -129,11 +129,10 @@ function fetchJournal(className, subjectName) {
                 className: className,
                 data: res.data,
             }
-            console.log('JOURNAL', journal)
             dispatch(fetchJournalSuccess(journal))
         })
         .catch(err => {
-            dispatch(fetchJournalError('Возникла ощибка'))
+            dispatch(fetchJournalError('Возникла ошибка при подгрузке журнала. Попробуйте обновить страницу.'))
         })
     }
 
@@ -165,15 +164,13 @@ function fetchHeader() {
         axios.get('http://localhost:8000/api/user/me/', {headers: { 'Authorization': `Token ${token}` }})
         .then(res => {
             const header = res.data.teaching_subjects
-            console.log('HEEEY', header)
             dispatch(fetchHeaderSuccess(header))
         })
         .catch(err => {
-            dispatch(fetchHeaderError('Возникла ощибка'))
+            dispatch(fetchHeaderError('Возникла ошибка при подгрузке данных об учителе.'))
         })
     }
 
-    // events actions
     function fetchHeaderPending() {
         return {
             type: userConstants.FETCH_HEADER_PENDING
@@ -257,11 +254,10 @@ function fetchAccount() {
             dispatch(fetchAccountSuccess(userAccountInfo))
         })
         .catch(err => {
-            dispatch(fetchAccountError('Возникла ощибка'))
+            dispatch(fetchAccountError('Возникла ошибка при подгрузке данных об учителе.'))
         })
     }
 
-    // events actions
     function fetchAccountPending() {
         return {
             type: userConstants.FETCH_ACCOUNT_PENDING
@@ -292,6 +288,41 @@ function changeSubHeaderTitle(value) {
         return {
             type: userConstants.CHANGE_SUBHEADER_TITLE,
             value: value
+        }
+    }
+}
+
+function fetchSchoolInfo() {
+    return dispatch => {
+        dispatch(fetchSchoolInfoPending());
+        const token = localStorage.getItem('token');
+        axios.get('http://localhost:8000/api/journal/school/', {headers: { 'Authorization': `Token ${token}` }})
+        .then(res => {
+            const school = res.data[0]
+            dispatch(fetchSchoolInfoSuccess(school))
+        })
+        .catch(err => {
+            dispatch(fetchSchoolInfoError('Возникла ошибка при подгрузке информации о школе.'))
+        })
+    }
+
+    function fetchSchoolInfoPending() {
+        return {
+            type: userConstants.FETCH_SCHOOLINFO_PENDING
+        }
+    }
+
+    function fetchSchoolInfoSuccess(school) {
+        return {
+            type: userConstants.FETCH_SCHOOLINFO_SUCCESS,
+            school
+        }
+    }
+
+    function fetchSchoolInfoError(error) {
+        return {
+            type: userConstants.FETCH_SCHOOLINFO_ERROR,
+            error: error
         }
     }
 }

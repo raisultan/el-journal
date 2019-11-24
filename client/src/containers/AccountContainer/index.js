@@ -5,6 +5,7 @@ import {Spin} from 'antd'
 import {userActions} from '../../redux/actions/userActions'
 import AccountCard from './components/AccountCard'
 import { CenterBlock } from './styled'
+import { openNotification } from '../../utils'
 
 class AccountContainer extends Component {
   componentWillMount() {
@@ -14,14 +15,18 @@ class AccountContainer extends Component {
 
   render() {
     const {account, pending, error} = this.props
+
+    let comp = <Spin tip="Подгружаем данные о пользователе..." />
+    if (!pending && !error) comp = <AccountCard user={account}/>
+
     return (
       <CenterBlock>
         {
-          pending
+          error
           ?
-          <Spin tip="Подгружаем данные о пользователе..." />
+          openNotification('Возникла ошибка!', error)
           :
-          <AccountCard user={account}/>
+          comp
         }
       </CenterBlock>
     )

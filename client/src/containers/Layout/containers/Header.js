@@ -7,6 +7,7 @@ import { StyledHeader, StyledAwayBlock } from '../styled'
 import Dropdown from './HeaderDropdown'
 import CustomButton from '../components/CustomButton'
 import { userActions } from '../../../redux/actions'
+import { openNotification } from '../../../utils'
 
 const { Header } = Layout
 
@@ -32,14 +33,18 @@ class MainHeader extends Component {
       <Header style={{ background: '#fff', padding: 0,}}>
         <StyledHeader>
           <h2>{upperCaseLabel}</h2>
-          <Dropdown
-            label="Предмет"
-            tip="Выберите предмет"
-            options={header}
-            selectHeader={changeHeader}
-            enableSubHeader={displaySubHeader}
-            displayJournal={displayJournalToggle}
-          />
+          {
+            error ? openNotification('Возникла ошибка!', error)
+            :
+            <Dropdown
+              label="Предмет"
+              tip="Выберите предмет"
+              options={header}
+              selectHeader={changeHeader}
+              enableSubHeader={displaySubHeader}
+              displayJournal={displayJournalToggle}
+            />
+          }
           <StyledAwayBlock width='210px'>
             <Link to="/layout/account" onClick={accountSubHeaderTitle}>
               <CustomButton

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {
-  Form, Input, Button, Icon, DatePicker
+  Form, Input, Button, Icon, DatePicker, Modal
 } from 'antd';
 import moment from 'moment'
 import axios from 'axios'
@@ -10,7 +10,7 @@ import { dateTimeConverter, prettifyInitialDjangoDateTime, prettifyDjangoDateTim
 
 const { TextArea } = Input
 
-const EventEditForm = ({form, title, desc, date, event_id, editButLabel, deleteButLabel}) => {
+const EventEditForm = ({form, title, desc, date, event_id, editButLabel, deleteButLabel, fetchEventListDispatcher}) => {
   const [eventDate, setEventDate] = useState(date)
 
   const handleSubmit = (e) => {
@@ -23,7 +23,8 @@ const EventEditForm = ({form, title, desc, date, event_id, editButLabel, deleteB
         console.log('THIS IS WHAT WE ARE SENDING:', values)
         axios.patch(`http://localhost:8000/api/event/events/${event_id}/`, values, {headers: { 'Authorization': `Token ${token}` }})
         .then(res => {
-            window.location.reload()
+            fetchEventListDispatcher()
+            Modal.destroyAll()
         })
         .catch(err => {
             console.log(err)
@@ -38,7 +39,8 @@ const EventEditForm = ({form, title, desc, date, event_id, editButLabel, deleteB
     const token = localStorage.getItem('token')
     axios.delete(`http://localhost:8000/api/event/events/${event_id}/`, {headers: { 'Authorization': `Token ${token}` }})
     .then(res => {
-        window.location.reload()
+        fetchEventListDispatcher()
+        Modal.destroyAll()
     })
     .catch(err => {
         console.log(err)

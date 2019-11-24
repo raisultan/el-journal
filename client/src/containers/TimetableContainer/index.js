@@ -5,6 +5,7 @@ import {Spin} from 'antd'
 import TimeTableCard from './components/TimeTableCard'
 import { TimeTableCardsWrapper, StyledCentererWrapper } from './styled'
 import { userActions } from '../../redux/actions/userActions'
+import {compareLessonNumbers, sortTimeTable, openNotification} from '../../utils'
 
 class TimetableContainer extends Component {
   componentWillMount() {
@@ -14,22 +15,34 @@ class TimetableContainer extends Component {
 
   render() {
     const {timetable, pending, error} = this.props
-    const cards = timetable.map(d => {
-      return <TimeTableCard key={d.day_of_week} day_of_week={d.day_of_week} lessons={d.lessons} class_name={d.class_name}/>
-    })
+
+    const notifyError = (err) => {
+      openNotification('Возникла ошибка!', err)
+    }
+
+    let comp = null
+    if (timetable.length > 0) {
+      const sortedTimeTable = sortTimeTable(timetable, compareLessonNumbers)
+      const cards = sortedTimeTable.map(d => {
+        return <TimeTableCard key={d.day_of_week} day_of_week={d.day_of_week} lessons={d.lessons} class_name={d.class_name}/>
+      })
+      comp = <TimeTableCardsWrapper>
+        {cards}
+      </TimeTableCardsWrapper>
+    } else if (pending) {
+      comp = <StyledCentererWrapper>
+            <Spin tip="Подгружаем расписание..." />
+          </StyledCentererWrapper>
+    }
 
     return (
       <>
         {
-          pending
+          error
           ?
-          <StyledCentererWrapper>
-            <Spin tip="Подгружаем расписание..." />
-          </StyledCentererWrapper>
+          notifyError(error)
           :
-          <TimeTableCardsWrapper>
-            {cards}
-          </TimeTableCardsWrapper>
+          comp
         }
       </>
     )
@@ -38,7 +51,6 @@ class TimetableContainer extends Component {
 
 const mapStateToProps = state => {
   const {timetable, pending, error} = state.fetchTimeTable
-  console.log('TIMETABLE:', timetable)
   return {
     timetable,
     pending,

@@ -1,12 +1,15 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import {Select } from 'antd'
 import axios from 'axios'
 
 import { openNotification } from '../../../utils/index'
+import { userActions } from '../../../redux/actions'
+import {notificationConstants} from '../../../utils/'
 
 const { Option } = Select
 
-const MarkDropDown = ({mark}) => {
+const MarkDropDown = ({mark, subjectName, className, fetchJournal}) => {
 
     function handleChange(value) {
         const token = localStorage.getItem('token')
@@ -21,21 +24,21 @@ const MarkDropDown = ({mark}) => {
 
             axios.post(`http://localhost:8000/api/journal/marks/`, newMark, {headers: { 'Authorization': `Token ${token}` }})
             .then(res => {
-                window.location.reload()
+                fetchJournal(className, subjectName)
             })
             .catch(err => {
                 console.log(err)
-                openNotification('Возникла ощибка!', 'Обновите страницу и попробуйте заново. Если это не поможет обратитесь к администратору.')
+                openNotification(...notificationConstants.UNKNOWN_ERROR)
             })
         } else {
             console.log('PATCH')
             axios.patch(`http://localhost:8000/api/journal/marks/${mark.id}/`, {value: value}, {headers: { 'Authorization': `Token ${token}` }})
             .then(res => {
-                window.location.reload()
+                fetchJournal(className, subjectName)
             })
             .catch(err => {
                 console.log(err)
-                openNotification('Возникла ощибка!', 'Обновите страницу и попробуйте заново. Если это не поможет обратитесь к администратору.')
+                openNotification(...notificationConstants.UNKNOWN_ERROR)
             })
         }
     }
@@ -52,4 +55,19 @@ const MarkDropDown = ({mark}) => {
     )
 }
 
-export default MarkDropDown
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchJournal: (subjectName, className) => dispatch(userActions.fetchJournal(subjectName, className))
+    }
+}
+
+const mapStateToProps = state => {
+    const {subjectName} = state.selectHeader
+    const {className} = state.selectSubHeader
+    return {
+        subjectName,
+        className,
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MarkDropDown)

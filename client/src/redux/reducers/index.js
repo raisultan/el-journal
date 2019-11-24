@@ -11,6 +11,7 @@ import {selectSubHeader} from './selectSubHeaderReducer'
 import {displaySubHeader} from './displaySubHeaderReducer'
 import {displayJournal} from './displayJournalReducer'
 import {changeSubHeaderTitle} from './changeSubHeaderTitleReducer'
+import {fetchSchoolInfo} from './schoolInfoReducer'
 
 const rootReducer = combineReducers({
   authentication,
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   displaySubHeader,
   displayJournal,
   changeSubHeaderTitle,
+  fetchSchoolInfo,
 })
 
 export default rootReducer

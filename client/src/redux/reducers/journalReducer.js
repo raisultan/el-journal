@@ -19,7 +19,7 @@ export function fetchJournal(state = initialState, action) {
                 pending: false,
                 journal: action.journal
             }
-        case userConstants.FETCH_JOURNAL_FAILURE:
+        case userConstants.FETCH_JOURNAL_ERROR:
             return {
                 ...state,
                 pending: false,

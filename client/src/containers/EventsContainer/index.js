@@ -5,6 +5,7 @@ import {Spin} from 'antd'
 import {userActions} from '../../redux/actions/userActions'
 import EventCard from './components/EventCard'
 import { EventsWrapper, StyledCentererWrapper } from './styled'
+import { openNotification } from '../../utils'
 
 class EventContainer extends Component {
  componentWillMount() {
@@ -27,17 +28,21 @@ class EventContainer extends Component {
     )
 
     return (
-      error ? error
-      :
-      <StyledCentererWrapper>
+      <>
         {
-          pending ? <Spin tip="Подгружаем события..." />
+          error ? openNotification('Возникла ошибка!', error)
           :
-          <EventsWrapper>
-            {cards}
-          </EventsWrapper>
+          <StyledCentererWrapper>
+            {
+              pending ? <Spin tip="Подгружаем события..." />
+              :
+              <EventsWrapper>
+                {cards}
+              </EventsWrapper>
+            }
+          </StyledCentererWrapper>
         }
-      </StyledCentererWrapper>
+      </>
     )
   }
 }
