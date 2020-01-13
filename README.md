@@ -1,32 +1,105 @@
-# el-journal
-Электронный журнал
+<br />
+<p align="center">
+  <a href="https://github.com/Raysultan/el-journal">
+    <img src="images/journal.png" alt="Logo">
+  </a>
 
-#### Использованные технологии:
-* React
-* Redux
-* styled-components
-* Axios
-* PostreSQL
+  <h1 align="center">Электронный журнал</h1>
 
-## Иформация для разработчиков:
-### Frontend:
-#### Naming convention:
-* For Components: Names of components should be in PascalCase and there is no any dashes is going to be used. Avoid repetition of directories and components. (e.g. user/Form.jsx, NOT - user/UserForm.jsx).
-* For Directories: Same PascalCase
+<!-- TABLE OF CONTENTS -->
+## Содержание
 
-#### Directories Structure:
-* Component(Container) folders are divided by app sections. In which, it will have [containers, components, styled, redux].
-* Shared folder contains hocs and other components, those are going to be used in multiple containers.
-* Utils directory contains utlities.
+* [О проекте](#о-проекте)
+  * [Технические детали](#технические-детали)
+  * [Скриншоты](#скриншоты)
+* [Локальная установка](#локальная-установка)
+  * [Пререквизиты](#пререквизиты)
+  * [Установка](#установка)
+* [Лицензия](#лицензия)
+* [Контакты](#контакты)
 
-## Types of directories
-* ##### Containers are stateful components, those are going to contain other functional-dumb components.
-* ##### Components folder contains functional or dumb components related to certain section of app.
-* ##### Styled folder will contain styled-wrapper components.
-* ##### Redux directory contains, all things related to redux.
 
-### Other important notices:
-* It is necessary to use PropTypes in every component. (For custom object SHAPE, should create custom PropTypes).
-* It is necessary to use defaultProps, if it is compatible to component.
-* Do not create components with lots of props. Instead use single object, and then decompose it with ES6.
-* Single Responsibility Rule!
+
+## О проекте
+
+Система для учета успеваемости учеников средних школ. Включает в себя учет успеваемости, отслеживания текущего расписания и управления классными событиями.
+
+Приложение представляет собой личный электронный журнал, позволяющий частично автоматизировать такую обязанность учителей, как заполнение электронного журнала. Данные в электронном виде существенно упрощает работу преподавателей по анализу и сбору информации о посещениях и успеваемости.
+
+
+### Технические детали
+
+* [Django](https://www.djangoproject.com/)
+* [Django Rest Framework](https://www.django-rest-framework.org/)
+* [React JS](https://ru.reactjs.org/)
+* [Redux](https://redux.js.org/)
+* [PostgreSQL](https://www.postgresql.org/)
+* [styled-components](https://www.styled-components.com/)
+* [axios](https://github.com/axios/axios)
+
+### Скриншоты
+
+<img src="images/timetable.png" alt="Timetable">
+<img src="images/events.png" alt="Events">
+<img src="images/new_event.png" alt="Adding new event">
+
+
+## Локальная установка
+
+### Прериквизиты
+
+Для того чтобы запустить проект вам понадобиться [yarn](https://yarnpkg.com/lang/en/) версии 1.21.1 или выше и [Python3](https://www.python.org/).
+* yarn
+```sh
+sudo apt-get update && sudo apt-get install yarn
+```
+* Python3
+```sh
+sudo apt-get update
+sudo apt-get install python3.6
+```
+
+### Установка
+
+1. Клонируйте репозитории с клиентской и сервеной частями
+```sh
+git clone https://github.com/Raysultan/el-journal
+git clone https://github.com/Raysultan/elj-backend
+```
+2. Установите требуемые зависимости
+- Для клиентской части:
+```sh
+yarn install
+```
+- Для серверной части:
+```sh
+pip install requirements.txt
+```
+3. Можете запускать проект
+```shell
+yarn start
+```
+```shell
+python3 manage.py runserver
+```
+
+Теперь вы может проходить по следующим ссылкам:
+для клиента: http://127.0.0.1:3000
+для сервера: http://127.0.0.1:8000
+
+
+## Серверная часть и API
+
+Ссылка на репозиторий: [https://github.com/Raysultan/elj-backend](https://github.com/Raysultan/elj-backend)
+
+
+## Лицензия
+
+Распространяется по лицензии MIT. Смотрите раздел "License" для получения дополнительной информации.
+
+
+## Контакты
+
+Райсултан Каримов - ki.xbozz@gmail.com
+
+Ссылка на проект: [https://github.com/Raysultan/el-journal](https://github.com/Raysultan/el-journal)
